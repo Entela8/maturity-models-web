@@ -1,0 +1,26 @@
+@media screen and (max-width: 800px)
+{
+    .project-timeline-container
+    {
+        gap: 10px;
+        margin: 0px;
+        flex-basis: 100%;
+    }
+
+    .clients-table-container 
+    {
+        margin: 50px 25px;
+    }
+
+    .profile-settings-container
+    {
+        width: 90%;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .profile-settings-form
+    {
+        margin: 25px 0px;
+    }
+}

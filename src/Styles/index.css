@@ -1,0 +1,359 @@
+:root {
+    --main-background: #171625;
+    --border-color: #4A4A95;
+    --text-color: #E0DFFE;
+    --component-color: #3D3E82;
+    --component-color-hover: #262A65;
+    --solid-color: #5B5BD6;
+    --solid-color-hover: #6E6ADE;
+    --color-3: #202248;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--main-background);
+}
+
+* {
+    font-family: 'Roboto';
+    box-sizing: border-box;
+    color: var(--text-color);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form div {
+    align-self: center;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.login-container>h2 {
+    text-align: center;
+}
+
+.login-input {
+    width: 350px;
+    margin: 10px 0px;
+    padding: 10px 20px;
+    outline: 0;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.login-submit-button {
+    padding: 10px 20px;
+    outline: 0;
+    border-radius: 10px;
+    background-color: var(--solid-color);
+    color: var(--text-color);
+    border: 0;
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+}
+
+.login-submit-button:hover {
+    background-color: var(--solid-color-hover);
+    transition: 0.2s ease-in-out;
+}
+
+.ask-reset-password {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin: 25px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 15px;
+}
+
+.hamburger-icon {
+    cursor: pointer;
+}
+
+.drawer-menu-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.drawer-content {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sector-clients {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navigation-sector-text {
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0px 15px;
+    transition: background-color 0.2s ease;
+}
+
+.navigation-sector-text:hover 
+{
+    background-color: var(--component-color-hover);
+}
+
+.table-head-title {
+    font-family: "RobotoBold" !important;
+    font-size: 17px !important;
+    text-align: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-create-client {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-direction: column;
+    background-color: var(--color-3);
+    padding: 40px;
+    border-radius: 20px;
+    max-height: 90%;
+    overflow-y: auto;
+    margin: 25px;
+}
+
+.form-create-client div {
+    width: 100%;
+}
+
+.form-client-input {
+    display: flex;
+    gap: 20px;
+}
+
+.cancel-button-form-create-client {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    cursor: pointer;
+}
+
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 50px 150px;
+    gap: 60px;
+}
+
+
+.form-create-project {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-direction: column;
+    background-color: var(--color-3);
+    padding: 40px;
+    border-radius: 20px;
+    max-height: 90%;
+    overflow-y: auto;
+}
+
+.form-create-project div {
+    width: 100%;
+}
+
+.cancel-button-form-create-project {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    cursor: pointer;
+}
+
+.form-project-input {
+    display: flex;
+    gap: 20px;
+}
+
+.form-create-project .MuiAutocomplete-popupIndicator,
+.form-create-project .MuiAutocomplete-endAdornment {
+    width: 10%;
+    float: right;
+    margin-right: 10px;
+}
+
+.MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiOutlinedInput-notchedOutline {
+    border: 2px solid var(--border-color);
+}
+
+.MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]:hover .MuiOutlinedInput-notchedOutline {
+    border: 2px solid var(--border-color);
+}
+
+.fileInput {
+    border: 2px solid var(--border-color);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.icon-files-folder {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    cursor: pointer;
+    height:30px;
+}
+
+.folders-containers {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height:30px;
+}
+
+.icon-files-folder:hover {
+    background-color: var(--component-color-hover);
+}
+
+.icon-files-folder:hover .file-delete-icon-container{
+    display: block;
+}
+
+.file-delete-icon-container {
+    display: none;
+}
+
+.tree-view-documents {
+    width: max-content;
+}
+
+.tree-view-documents:hover{
+    background-color: var(--component-color-hover);
+}
+
+.folder-delete-icon-container{
+    display: flex;
+    align-items: center;
+}
+
+.alert-message{ 
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); 
+    margin-bottom: 20px;
+    z-index: 999;
+}
+
+.project-timeline-container
+{
+    margin: 0% 5%;
+    align-items: center;
+    display: flex;
+    gap: 40px;
+    font-weight: bold;
+    flex: 1;
+}
+
+.clients-table-container 
+{
+    margin: 50px 25%;
+}
+
+.folder-drag-over
+{
+    background-color: var(--component-color);
+}
+
+.profile-settings-container
+{
+    background-color: var(--color-3);
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.profile-settings-form
+{
+    margin: 10px;
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.profile-settings-form button[type=submit]
+{
+    margin-top: 20px;
+}
+
+.invoices-table-container 
+{
+    margin: 50px 15%;
+}
+
+.form-create-quotations {
+    flex-direction: column;
+    width: max-content;
+    padding: 20px;
+    margin: auto;
+}
+
+.form-quotation-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    margin-right: 20px;
+    margin-bottom: 50px;
+    overflow-y: auto;
+    gap: 60px;
+}
+
+.form-quotation-input-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    gap: 20px;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline.css-vqcj50-MuiInputBase-root-MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #6E6ADE !important;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline.css-vqcj50-MuiInputBase-root-MuiOutlinedInput-root .MuiInputLabel-outlined {
+    color: #6E6ADE !important;
+}
+
+.MuiInput-underline:before,
+.MuiInput-underline:after {
+  border-bottom-color: var(--solid-color-hover) !important;
+}
