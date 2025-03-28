@@ -32,7 +32,7 @@ const Dashboard = observer(() => {
                 </Typography>
 
                 <Grid container spacing={3}>
-                    {role === 'Admin' && (
+                    {role === 'Owner' && (
                         <Grid item xs={12} md={4}>
                             <Card>
                                 <CardContent>

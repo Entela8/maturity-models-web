@@ -16,6 +16,7 @@ const Home = () => {
 
             <Box mt={4}>
                 <Button 
+                    className='auth-btn'
                     variant="contained" 
                     color="primary" 
                     sx={{ mx: 2 }} 
@@ -24,6 +25,7 @@ const Home = () => {
                     Se connecter
                 </Button>
                 <Button 
+                    className='auth-btn'
                     variant="outlined" 
                     color="primary" 
                     sx={{ mx: 2 }} 

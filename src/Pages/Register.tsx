@@ -4,6 +4,7 @@ import { Alert, Backdrop, CircularProgress } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStores } from '../Stores';
 import User from '../Utils/Types/user';
+import { Role } from '../Utils/Types/role';
 
 const Register = observer(() => {
     const { apiStore } = useStores();
@@ -13,7 +14,7 @@ const Register = observer(() => {
         email: '',
         firstName: '',
         lastName: '',
-        role: '',
+        role: Role.member,
         lastActivity: new Date(),
     });
 
@@ -31,7 +32,7 @@ const Register = observer(() => {
         setLoading(true);
 
         try {
-            await apiStore.post('auth/register', user);
+            await apiStore.post('users/register', user);
             navigate('/login');
         } catch (error) {
             console.error('An error occurred during registration:', error);
@@ -48,7 +49,9 @@ const Register = observer(() => {
                 <CircularProgress color='inherit' />
             </Backdrop>
             <div className='login-container'>
-                <h2 style={{ fontWeight: 'bold' }}>Créer un compte</h2>
+                <h2>
+                    Créer un compte
+                </h2>
                 <form className='login-form' onSubmit={attemptRegister}>
                     <input
                         type='text'
@@ -57,14 +60,6 @@ const Register = observer(() => {
                         onChange={handleChange}
                         className='login-input'
                         placeholder='Nom d&apos;utilisateur'
-                    />
-                    <input
-                        type='email'
-                        name='email'
-                        required
-                        onChange={handleChange}
-                        className='login-input'
-                        placeholder='Email'
                     />
                     <input
                         type='text'
@@ -82,21 +77,30 @@ const Register = observer(() => {
                         className='login-input'
                         placeholder='Nom'
                     />
+                    <input
+                        type='email'
+                        name='email'
+                        required
+                        onChange={handleChange}
+                        className='login-input'
+                        placeholder='Email'
+                    />
                     <select
                         name='role'
                         required
                         onChange={handleChange}
                         className='login-input'
                     >
-                        <option value=''>Sélectionnez un rôle</option>
-                        <option value='1'>Role 1</option>
-                        <option value='2'>Role 2</option>
-                        <option value='3'>Role 3</option>
+                        <option value="">Sélectionnez un rôle</option>
+                            {Object.entries(Role).map(([key, value]) => (
+                                <option key={key} value={key}>{value}</option>
+                            ))}
                     </select>
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{ textAlign: 'center', marginTop: 16 }}>
                         <button type='submit' className='login-submit-button'>S&apos;inscrire</button>
                     </div>
                 </form>
+
                 {registerError && (
                     <div className='alert-message'>
                         <Alert variant='outlined' severity='error'>
@@ -104,6 +108,7 @@ const Register = observer(() => {
                         </Alert>
                     </div>
                 )}
+
                 <div style={{ margin: '15px', textAlign: 'center' }}>
                     <Link to={'/login'}>Déjà un compte ? Connectez-vous</Link>
                 </div>

@@ -1,3 +1,5 @@
+import { Role } from "./role"
+
 export default interface User 
 {
     "_id": string,
@@ -5,6 +7,6 @@ export default interface User
     "email": string,
     "firstName": string,
     "lastName": string
-    "role": string
+    "role": Role
     "lastActivity": Date,
 }

@@ -25,6 +25,10 @@ h1, h2, h3, h4, h5 {
     color: white;
 }
 
+h1, h2{
+    font-weight: 800;
+}
+
 * {
     font-family: 'Roboto';
     box-sizing: border-box;
@@ -34,6 +38,8 @@ h1, h2, h3, h4, h5 {
 .login-form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-form div {
@@ -41,10 +47,16 @@ h1, h2, h3, h4, h5 {
 }
 
 .login-container {
+    height: 100vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: 300px;
+    align-items: center;
+}
+
+.auth-btn{
+    width: 200px;
+    height: 40px;
 }
 
 .home-container {

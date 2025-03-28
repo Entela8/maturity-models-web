@@ -67,7 +67,7 @@ export default class UserStore {
     }
 
     @computed get isAdmin() {
-        return this.user?.role === 'ADMIN'
+        return this.user?.role === 'Owner'
     }
 
     @computed get isConnected() 
