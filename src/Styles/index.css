@@ -21,6 +21,10 @@ body {
     background-color: var(--main-background);
 }
 
+h1, h2, h3, h4, h5 {
+    color: white;
+}
+
 * {
     font-family: 'Roboto';
     box-sizing: border-box;
@@ -40,6 +44,17 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    margin-top: 300px;
+}
+
+.home-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+    text-align: center;
 }
 
 .login-container>h2 {

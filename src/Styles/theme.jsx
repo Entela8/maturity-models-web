@@ -12,6 +12,22 @@ const theme = createTheme({
           },
           textTransform: 'none',
         },
+        contained: {
+          backgroundColor: '#5B5BD6',
+          color: '#E0DFFE',
+          '&:hover': {
+            backgroundColor: '#6E6ADE',
+          },
+          textTransform: 'none',
+        },
+        outlined: {
+          backgroundColor: 'transparent',
+          color: 'white',
+          borderColor: '#5B5BD6',
+          '&:hover': {
+            backgroundColor: '#3e3e87',
+          },
+        }
       },
     },
     MuiDrawer: {

@@ -2,7 +2,6 @@ import React, { FormEvent, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import UserStore from '../Stores/UserStore';
 import user from '../Utils/Types/user';
 import axios, { isAxiosError } from 'axios';
 import { useStores } from '../Stores';
@@ -10,7 +9,7 @@ import { useStores } from '../Stores';
 
 const Login = (observer(() => 
 {
-    const { userStore, apiStore } = useStores()
+    	const { userStore, apiStore } = useStores()
 		const [username, setUsername] = useState<string>();
 		const [password, setPassword] = useState<string>();
 		const [loading, setLoading] = useState<boolean>(false);
