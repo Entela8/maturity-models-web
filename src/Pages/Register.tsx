@@ -5,15 +5,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useStores } from '../Stores';
 import User from '../Utils/Types/user';
 import { Role } from '../Utils/Types/role';
+import { isAxiosError } from 'axios';
 
 const Register = observer(() => {
     const { apiStore } = useStores();
     const [user, setUser] = useState<User>({
-        _id: '',
+        _id: undefined,
         username: '',
         email: '',
         firstName: '',
         lastName: '',
+        password: '',
         role: Role.member,
         lastActivity: new Date(),
     });
@@ -31,12 +33,25 @@ const Register = observer(() => {
         event.preventDefault();
         setLoading(true);
 
+        console.log('User Data:', JSON.stringify(user, null, 3));
+
         try {
-            await apiStore.post('users/register', user);
+            await apiStore.post('users', user) as User;
             navigate('/login');
         } catch (error) {
             console.error('An error occurred during registration:', error);
             setRegisterError(true);
+            
+            if (isAxiosError(error)) {
+                if (error.response?.status === 400) {
+                    console.error('Bad Request: Check your input data.');
+                } else if (error.response?.status === 500) {
+                    console.error('Server Error: Please try again later.');
+                }
+            } else {
+                console.error('Unknown error occurred during registration.');
+            }
+
             setTimeout(() => setRegisterError(false), 5000);
         } finally {
             setLoading(false);
@@ -84,6 +99,14 @@ const Register = observer(() => {
                         onChange={handleChange}
                         className='login-input'
                         placeholder='Email'
+                    />
+                    <input
+                        type='password'
+                        name='password'
+                        required
+                        onChange={handleChange}
+                        className='login-input'
+                        placeholder='Mot de passe'
                     />
                     <select
                         name='role'

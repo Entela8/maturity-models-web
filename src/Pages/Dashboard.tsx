@@ -32,7 +32,7 @@ const Dashboard = observer(() => {
                 </Typography>
 
                 <Grid container spacing={3}>
-                    {role === 'Owner' && (
+                    {role === 'OWNER' && (
                         <Grid item xs={12} md={4}>
                             <Card>
                                 <CardContent>
@@ -43,7 +43,7 @@ const Dashboard = observer(() => {
                         </Grid>
                     )}
                     
-                    {role === 'Team Leader' && (
+                    {role === 'TEAM LEADER' && (
                         <>
                             <Grid item xs={12} md={4}>
                                 <Card>
@@ -64,7 +64,7 @@ const Dashboard = observer(() => {
                         </>
                     )}
                     
-                    {role === 'Team Member' && (
+                    {role === 'MEMBER' && (
                         <>
                             <Grid item xs={12} md={4}>
                                 <Card>

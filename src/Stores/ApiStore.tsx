@@ -42,7 +42,7 @@ export default class UserStore {
                     this.rootStore.userStore.disconnect()
                 }
 
-                reject(error.response);
+                reject(new Error(error.response));
             })
         });
     }
