@@ -22,7 +22,6 @@ const Dashboard = observer(() => {
                     <Typography variant="h6" sx={{ flexGrow: 1 }}>
                         Tableau de bord
                     </Typography>
-                    <Button color="inherit" >Déconnexion</Button>
                 </Toolbar>
             </AppBar>
             
@@ -38,6 +37,12 @@ const Dashboard = observer(() => {
                                 <CardContent>
                                     <Typography variant="h6">Gestion des modèles</Typography>
                                     <Button variant="contained" fullWidth onClick={() => navigate('/models')}>Gérer les modèles</Button>
+                                </CardContent>
+                            </Card>
+                            <Card>
+                                <CardContent>
+                                    <Typography variant="h6">Créer un nouveau modèle</Typography>
+                                    <Button variant="contained" fullWidth onClick={() => navigate('/models/create')}>Créer modèle</Button>
                                 </CardContent>
                             </Card>
                         </Grid>
