@@ -31,6 +31,7 @@ const Login = (observer(() =>
 
 				const user: user = await apiStore.post('auth/login', payload) as user
 				userStore.setUser(user);
+				console.log(user);
 				navigate('/');
 			}
 			catch (error) {
