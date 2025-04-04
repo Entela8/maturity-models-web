@@ -21,6 +21,7 @@ export default class UserStore {
 
     @action
     post(action: string, params: object, customHeader: object | null = null) {
+        
         const configurationObject: AxiosRequestConfig = {
             method: 'post',
             url: API_URL + action,
@@ -28,8 +29,7 @@ export default class UserStore {
             headers: customHeader === null ? {
                 'Content-Type': 'application/json',
             } : customHeader,
-            withCredentials: true,
-            baseURL: API_URL
+            //withCredentials: true
         };
 
         return new Promise((resolve, reject) => {

@@ -16,7 +16,7 @@ const Register = observer(() => {
         firstName: '',
         lastName: '',
         password: '',
-        role: Role.member,
+        role: Role.MEMBER,
         lastActivity: new Date(),
     });
 
@@ -36,7 +36,7 @@ const Register = observer(() => {
         console.log('User Data:', JSON.stringify(user, null, 3));
 
         try {
-            await apiStore.post('users', user) as User;
+            await apiStore.post('users/register', user);
             navigate('/login');
         } catch (error) {
             console.error('An error occurred during registration:', error);
