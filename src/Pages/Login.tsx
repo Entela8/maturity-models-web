@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import user from '../Utils/Types/user';
 import axios, { isAxiosError } from 'axios';
 import { useStores } from '../Stores';
+import { AuthPayload } from '../Utils/Types/authPayload';
 
 
 const Login = (observer(() => 
@@ -29,10 +30,15 @@ const Login = (observer(() =>
 					password: password,
 				};
 
-				const user = await apiStore.post('auth/login', payload) as user
-				userStore.setUser(user);
-				console.log(user);
-				navigate('/');
+				const response = await apiStore.post('auth/login', payload) as AuthPayload;
+
+				if (response) {
+					await userStore.setUserFromApiResponse(response); 
+					console.log(response);
+					navigate('/Dashboard');
+				} else {
+					console.error("Erreur de connexion", response);
+				}
 			}
 			catch (error) {
 				if (isAxiosError(error) && error.response?.status === 401) {

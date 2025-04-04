@@ -10,7 +10,7 @@ import { isAxiosError } from 'axios';
 const Register = observer(() => {
     const { apiStore } = useStores();
     const [user, setUser] = useState<User>({
-        _id: undefined,
+        id: undefined,
         username: '',
         email: '',
         firstName: '',
