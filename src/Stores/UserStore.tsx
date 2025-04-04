@@ -8,9 +8,7 @@ import user from '../Utils/Types/user';
 
 export default class UserStore {
 
-    @observable user: user | undefined;
-    @observable token: string | undefined;
-    @observable refreshToken: string | undefined;
+    @observable user: user|undefined;
 
     constructor() {
         makeObservable(this);
@@ -18,45 +16,35 @@ export default class UserStore {
     }
 
     @action
-    async setUser(user: user | undefined, token?: string, refreshToken?: string) {
+    async setUser(user: user|undefined) {
         this.user = user;
-        this.token = token;
-        this.refreshToken = refreshToken;
 
         if (user?._id) {
-            localStorage.setItem("user", JSON.stringify(user));
-            if (token) localStorage.setItem("token", token);
-            if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+            localStorage.setItem("user", JSON.stringify(user))
         }
     }
 
     async getStoredUser() {
         try {
-            const localStorageUser = localStorage.getItem("user");
-            const localStorageToken = localStorage.getItem("token");
-            const localStorageRefreshToken = localStorage.getItem("refreshToken");
+            const localStorageUser = localStorage.getItem("user")
 
             if (localStorageUser) {
-                this.setUser(
-                    JSON.parse(localStorageUser),
-                    localStorageToken || undefined,
-                    localStorageRefreshToken || undefined
-                );
+                this.setUser(JSON.parse(localStorageUser))
             }
-        } catch (e) {
-            console.warn(e);
-            return null;
+        }
+        catch (e) {
+            console.warn(e)
+            return null
         }
     }
 
     async removeStoredUser() {
         try {
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
-            localStorage.removeItem('refreshToken');
-            this.setUser(undefined);
-        } catch (e) {
-            console.warn(e);
+            localStorage.removeItem('user')
+            this.setUser(undefined)
+        }
+        catch (e) {
+            console.warn(e)
         }
     }
 
@@ -67,22 +55,23 @@ export default class UserStore {
     }
 
     @computed get getUser() {
-        return this.user;
+        return this.user
     }
 
     @computed get id() {
-        return this.user?._id;
+        return this.user?._id
     }
 
     @computed get fullName() {
-        return this.user?.firstName + " " + this.user?.lastName;
+        return this.user?.firstName + " " + this.user?.lastName
     }
 
     @computed get isAdmin() {
-        return this.user?.role === 'Owner';
+        return this.user?.role === 'Owner'
     }
 
-    @computed get isConnected() {
-        return this.user;
+    @computed get isConnected() 
+    {
+        return this.user
     }
 }
