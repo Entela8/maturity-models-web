@@ -54,6 +54,85 @@ h1, h2{
     align-items: center;
 }
 
+.dashboard-title{
+    text-align: center;
+}
+
+.dahshboard-section {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.container-list-view{
+    padding: 30px
+}
+
+.model-card{
+    padding: 30px;
+    cursor: pointer;
+}
+
+.models-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 50px 150px;
+    gap: 60px;
+}
+
+.drawer-menu-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.drawer-content {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.sector-clients {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navigation-sector-text {
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0px 15px;
+    transition: background-color 0.2s ease;
+}
+
+.navigation-sector-text:hover 
+{
+    background-color: var(--component-color-hover);
+}
+
+.table-head-title {
+    font-size: 17px !important;
+    text-align: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.model-qa{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
 .auth-btn{
     width: 200px;
     height: 40px;
