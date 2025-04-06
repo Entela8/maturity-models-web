@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -11,15 +11,18 @@ import {
 } from "@mui/material";
 import { Model } from "../../Utils/Types/model";
 import { useStores } from "../../Stores";
+import HeaderMenu from "../../Components/HeaderMenu";
 
 export default function ModelView() {
   const { id } = useParams<{ id: string }>();
   const [model, setModel] = useState<Model | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { apiStore, userStore } = useStores();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (id) getModel(id);
+    if (id) 
+      getModel(id);
   }, [id]);
 
   const getModel = async (modelId: string) => {
@@ -36,20 +39,48 @@ export default function ModelView() {
     }
   };
 
+  const deleteModel = async () => {
+    setLoading(true);
+    try {
+      const response = await apiStore.delete(`models/${id}`, {
+        Authorization: `Bearer ${userStore.token}`,
+      });
+      navigate('/models')
+    } catch (error) {
+      console.error("❌ Erreur lors de la suppression du modèle :", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   if (loading || !model) {
     return (
-      <Box className="flex justify-center items-center h-screen">
+      <div style={{display: 'flex', marginTop: 100, justifyContent: 'center'}}>
         <CircularProgress />
-      </Box>
+      </div>
     );
   }
 
   return (
+    <>
+    <HeaderMenu headerText={model.title} />
+    
     <div className="model-qa">
-      <h3 className="dashboard-title">
-        {model.title}
-      </h3>
-
+      <Button 
+          variant="text" 
+          onClick={deleteModel}
+          endIcon={
+              <img 
+                  src="/elements/delete.svg" 
+                  alt="Créer" 
+                  height={20} 
+                  width={20} 
+                  style={{ filter: 'invert(1)' }}
+              />
+          }
+      >
+          Supprimer le modéle
+      </Button>
       {model.questions.map((question) => (
         <div key={question.id}>
           <Card elevation={3} sx={{borderRadius: 5, width: 700}}>
@@ -77,7 +108,7 @@ export default function ModelView() {
           </Card>
         </div>
       ))}
-
     </div>
+    </>
   );
 }

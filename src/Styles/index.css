@@ -84,6 +84,47 @@ h1, h2{
     gap: 60px;
 }
 
+.drawer-menu-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.drawer-content {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.sector-clients {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navigation-sector-text {
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0px 15px;
+    transition: background-color 0.2s ease;
+}
+
+.navigation-sector-text:hover 
+{
+    background-color: var(--component-color-hover);
+}
+
+.table-head-title {
+    font-size: 17px !important;
+    text-align: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .model-qa{
     display: flex;
     flex-direction: column;

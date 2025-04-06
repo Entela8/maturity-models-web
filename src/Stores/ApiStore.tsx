@@ -75,4 +75,32 @@ export default class UserStore {
             })
         });
     }
+
+    @action
+    delete(action: string, customHeader: object | null = null) {
+        const apiUrl = `${API_URL}${action}`;
+    
+        const configurationObject: AxiosRequestConfig = {
+            method: 'delete',
+            url: apiUrl,
+            headers: customHeader === null ? {
+                'Content-Type': 'application/json',
+            } : customHeader,
+            withCredentials: true,
+            baseURL: API_URL
+        };
+        
+        return new Promise((resolve, reject) => {
+            axios(configurationObject)
+            .then(response => {
+                resolve(response.data);
+            })
+            .catch(error => {
+                if (error.response?.status === 401) {
+                    this.rootStore.userStore.disconnect();
+                }
+                reject(error.response);
+            });
+        });
+    }
 }

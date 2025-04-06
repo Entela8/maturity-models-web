@@ -5,6 +5,7 @@ import { useStores } from "../../Stores";
 import { LOCAL_STORAGE_KEY } from "../../Utils/variables";
 import { CircularProgress } from "@mui/material";
 import ModelCard from "./ModelCard";
+import HeaderMenu from "../../Components/HeaderMenu";
 
 const ModelList = () => {
   const [localModels, setLocalModels] = useState<Model[]>([]);
@@ -47,11 +48,13 @@ const ModelList = () => {
 
   return (
     <>
-      {loading && <CircularProgress />}
-  
+      {loading && 
+      <div style={{alignItems: 'center'}}>
+        <CircularProgress />
+      </div>}
+      <HeaderMenu headerText={"Liste de modéles de maturité"} />
+
       <div className="container-list-view">
-        <h3 className="dashboard-title">Modèles de Maturité</h3>
-        <hr />
   
         {/* Section des modèles API */}
         <section className="models-container">  

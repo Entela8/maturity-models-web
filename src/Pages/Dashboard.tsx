@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { Button, Card, CardContent } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useStores } from '../Stores';
+import HeaderMenu from '../Components/HeaderMenu';
 
 const Dashboard = observer(() => {
     const { userStore } = useStores();
@@ -16,6 +17,9 @@ const Dashboard = observer(() => {
     const role = userStore.user.role;
 
     return (
+        <>
+        <HeaderMenu headerText={"Bienvenue " + userStore.user?.firstName}  />
+
         <div style={{padding: 20}}>
 
             <h3 className='dashboard-title'>
@@ -24,7 +28,7 @@ const Dashboard = observer(() => {
             
             <section className='dahshboard-section'>
                 <h1>
-                    Bienvenue, {userStore.user.username} ({role})
+                    Vous etes: ({role})
                 </h1>
 
                 <div>
@@ -137,6 +141,7 @@ const Dashboard = observer(() => {
                 </div>
             </section>
         </div>
+        </>
     );
 });
 
