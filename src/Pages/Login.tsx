@@ -31,7 +31,7 @@ const Login = (observer(() =>
 
 				const user = await apiStore.post('auth/login', payload) as user
 				userStore.setUser(user);
-				navigate('/');
+				navigate('/dashboard');
 			}
 			catch (error) {
 				if (isAxiosError(error) && error.response?.status === 401) {
