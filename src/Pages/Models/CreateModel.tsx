@@ -5,11 +5,13 @@ import { useStores } from '../../Stores';
 import { Model } from "../../Utils/Types/model";
 import { Question } from "../../Utils/Types/question";
 import { Answer } from "../../Utils/Types/answer";
+import { isAxiosError } from "axios";
 
 export default function MaturityModel() {
+  const { userStore, apiStore } = useStores()
   const [title, setTitle] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { userStore } = useStores();
 
   const [questions, setQuestions] = useState<Question[]>([
     { id: Date.now(), content: "", answers: [{ id: Date.now(), content: "", score: 1 }] }
@@ -47,69 +49,65 @@ export default function MaturityModel() {
 
   const submit = () => {
     const model: Model = { id: Date.now(), title, questions };
-
     
-    submitToApi(model);
+    createModel(model);
     submitLocalStorage(model);
 
     navigate("/models");
   };
 
   const submitLocalStorage = (model: Model) => {
-    // Récupérer les modèles existants depuis le localStorage
     const existingModels = JSON.parse(localStorage.getItem("maturityModels") || "[]");
-
-    // Ajouter le nouveau modèle
     const updatedModels = [...existingModels, model];
-
-    // Sauvegarder dans le localStorage
     localStorage.setItem("maturityModels", JSON.stringify(updatedModels));
   }
 
-  const submitToApi = async (model: Model) => {
-    const token = userStore.token;
-  
-    if (!token) {
-      console.error("Token manquant");
-      return;
-    }
-  
-    // Nettoyer le modèle : retirer les `id`
-    const payload = {
-      title: model.title,
-      questions: model.questions.map((q) => ({
-        content: q.content,
-        answers: q.answers.map((a) => ({
-          content: a.content,
-          score: a.score,
-        })),
-      })),
-    };
-    console.log("Payload à envoyer :", payload);
-  
-    try {
-      const response = await fetch("http://localhost:8080/api/v1/models/new", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP : ${response.status}`);
+  const createModel = async (model: Model) => {
+      setLoading(true);
+
+      try {
+          const token = userStore.token;
+
+          if (!token) {
+              console.error("Token manquant");
+              setLoading(false);
+              return;
+          }
+
+          const payload = {
+              title: model.title,
+              questions: model.questions.map((q) => ({
+                  content: q.content,
+                  answers: q.answers.map((a) => ({
+                      content: a.content,
+                      score: a.score,
+                  })),
+              })),
+          };
+
+          console.log("Payload à envoyer :", payload);
+
+          const response = await apiStore.post('/models/new', payload, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+
+          if (response) {
+              console.log("Réponse de l'API :", response);
+          } else {
+              console.error("Erreur de réponse API", response);
+          }
+      } catch (error) {
+          if (isAxiosError(error) && error.response?.status === 401) {
+              console.error('Non autorisé : token invalide ou expiré');
+          } else {
+              console.error("Erreur lors de l'envoi du modèle :", error);
+          }
+      } finally {
+          setLoading(false);
       }
-  
-      const data = await response.json();
-      console.log("Réponse de l'API :", data);
-    } catch (error) {
-      console.error("Erreur lors de l'envoi du modèle :", error);
-    }
-  };
-  
-  
-     
+  }; 
 
   return (
     <div className="p-6 max-w-2xl mx-auto">
@@ -149,4 +147,5 @@ export default function MaturityModel() {
       </Card>
     </div>
   );
+
 }

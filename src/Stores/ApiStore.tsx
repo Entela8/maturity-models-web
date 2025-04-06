@@ -48,15 +48,15 @@ export default class UserStore {
     }
 
     @action
-    get(action: string) {
+    get(action: string, customHeader: object | null = null) {
         const apiUrl = `${API_URL}${action}`;
-
+    
         const configurationObject: AxiosRequestConfig = {
             method: 'get',
             url: apiUrl,
-            headers: {
-                'content-type': 'application/json',
-            },
+            headers: customHeader === null ? {
+                'Content-Type': 'application/json',
+            } : customHeader,
             withCredentials: true,
             baseURL: API_URL
         };
@@ -67,10 +67,10 @@ export default class UserStore {
                 resolve(response.data);
             })
             .catch(error => {
-                if (error.response.status === 401) {
+                if (error.response?.status === 401) {
                     this.rootStore.userStore.disconnect()
                 }
-
+    
                 reject(error.response);
             })
         });

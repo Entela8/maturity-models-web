@@ -2,9 +2,9 @@ import React, { FormEvent, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { useStores } from '../Stores';
-import User from '../Utils/Types/user';
-import { Role } from '../Utils/Types/role';
+import { useStores } from '../../Stores';
+import User from '../../Utils/Types/user';
+import { Role } from '../../Utils/Types/role';
 import { isAxiosError } from 'axios';
 
 const Register = observer(() => {
