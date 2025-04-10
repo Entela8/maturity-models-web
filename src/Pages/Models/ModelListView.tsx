@@ -1,32 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Model, ModelDTO } from "../../Utils/Types/model";
+import { ModelDTO } from "../../Utils/Types/model";
 import { useStores } from "../../Stores";
-import { LOCAL_STORAGE_KEY } from "../../Utils/variables";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import ModelCard from "./ModelCard";
 import HeaderMenu from "../../Components/HeaderMenu";
 
 const ModelList = () => {
-  const [localModels, setLocalModels] = useState<Model[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [apiModels, setApiModels] = useState<ModelDTO[]>([]);
   const navigate = useNavigate();
   const { userStore, apiStore } = useStores();
 
   useEffect(() => {
-      const storedModels = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (storedModels) {
-          try {
-              const parsedModels: Model[] = JSON.parse(storedModels);
-              setLocalModels(parsedModels);
-              console.log("Modèles locaux :", parsedModels);
-          } catch (e) {
-              console.error("Erreur parsing localStorage :", e);
-          }
-      }
       getModels();
-
   }, [userStore.token]);
 
   const getModels = async () => {
@@ -49,14 +36,29 @@ const ModelList = () => {
   return (
     <>
       {loading && 
-      <div style={{alignItems: 'center'}}>
-        <CircularProgress />
-      </div>}
+        <div style={{alignItems: 'center'}}>
+          <CircularProgress />
+        </div>
+      }
       <HeaderMenu headerText={"Liste de modéles de maturité"} />
 
       <div className="container-list-view">
-  
-        {/* Section des modèles API */}
+        <Button 
+            variant="text" 
+            onClick={() => navigate(`/models/create`)}
+            endIcon={
+                <img 
+                    src="/elements/create.svg" 
+                    alt="Créer un modéle" 
+                    height={20} 
+                    width={20} 
+                    style={{ filter: 'invert(1)' }}
+                />
+            }
+        > 
+          Créer un modèle
+        </Button>
+
         <section className="models-container">  
           {apiModels.length === 0 ? (
             <p>Aucun modèle disponible depuis l'API.</p>

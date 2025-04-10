@@ -27,7 +27,7 @@ const theme = createTheme({
           '&:hover': {
             backgroundColor: '#3e3e87',
           },
-        }
+        },
       },
     },
     MuiDrawer: {
