@@ -21,6 +21,7 @@ export default function ModelView() {
   useEffect(() => {
     if (id) 
       getModel(id);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getModel = async (modelId: string) => {

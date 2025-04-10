@@ -14,6 +14,7 @@ const ModelList = () => {
 
   useEffect(() => {
       getModels();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getModels = async () => {
