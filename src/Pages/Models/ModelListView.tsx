@@ -39,7 +39,7 @@ const ModelList = () => {
     
         setApiModels(data);
     } catch (error) {
-        console.error("❌ Erreur lors de la récupération des modèles :", error);
+        console.error("Erreur lors de la récupération des modèles :", error);
     }
     finally {
         setLoading(false);

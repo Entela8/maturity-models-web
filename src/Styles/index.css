@@ -451,6 +451,17 @@ header {
     gap: 20px;
 }
 
+.login-input {
+    background-color: var(--color-3);
+    color: var(--text-color);
+}
+
+.login-input option {
+    background-color: var(--color-3);
+    color: var(--text-color);
+}
+
+
 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline.css-vqcj50-MuiInputBase-root-MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
     border-color: #6E6ADE !important;
 }
