@@ -33,7 +33,7 @@ export default function ModelView() {
       }) as Model;
       setModel(data);
     } catch (error) {
-      console.error("❌ Erreur lors de la récupération du modèle :", error);
+      console.error("Erreur lors de la récupération du modèle :", error);
     } finally {
       setLoading(false);
     }
@@ -47,7 +47,7 @@ export default function ModelView() {
       });
       navigate('/models')
     } catch (error) {
-      console.error("❌ Erreur lors de la suppression du modèle :", error);
+      console.error("Erreur lors de la suppression du modèle :", error);
     } finally {
       setLoading(false);
     }
