@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ModelDTO } from "../../Utils/Types/model";
 import { useStores } from "../../Stores";
 import { Button, CircularProgress } from "@mui/material";
-import ModelCard from "./ModelCard";
+import ModelCard from "../../Components/ModelCard";
 import HeaderMenu from "../../Components/HeaderMenu";
 
 const ModelList = () => {
