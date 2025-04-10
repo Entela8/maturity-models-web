@@ -25,7 +25,6 @@ const HeaderMenu = (observer(({ allowBack, headerText }: HeaderMenuProps) => {
 
      const disconnect = async () => {
           try {
-               await apiStore.get('auth/logout')
                userStore.disconnect()
           } catch (error) {
                console.error(error)

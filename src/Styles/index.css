@@ -138,6 +138,24 @@ h1, h2{
     height: 40px;
 }
 
+.create-model-card{
+    width: 60%;
+    padding: 35px;
+    border-radius: 25px !important;
+}
+
+.create-model-s{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-model-input{
+    display: flex;
+    flex-direction: column;
+}
+
 .home-container {
     height: 100vh;
     display: flex;
@@ -187,6 +205,21 @@ h1, h2{
     align-items: center;
     height: 80vh;
     margin: 25px;
+}
+
+.hamburger-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: '100vh';
+}
+
+.member-list-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
 }
 
 header {
@@ -450,6 +483,17 @@ header {
     margin-bottom: 40px;
     gap: 20px;
 }
+
+.login-input {
+    background-color: var(--color-3);
+    color: var(--text-color);
+}
+
+.login-input option {
+    background-color: var(--color-3);
+    color: var(--text-color);
+}
+
 
 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline.css-vqcj50-MuiInputBase-root-MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
     border-color: #6E6ADE !important;
