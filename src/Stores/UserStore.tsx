@@ -72,7 +72,7 @@ export default class UserStore {
     @action
     async disconnect() {
         this.removeStoredUser();
-        //window.location.replace("/login");
+        window.location.replace("/login");
     }
 
     @computed get getUser() {

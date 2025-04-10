@@ -62,7 +62,7 @@ const Dashboard = observer(() => {
                                         fullWidth onClick={() => navigate('/models/create')}
                                         startIcon={
                                             <img 
-                                                src="/elements/create.svg" 
+                                                src="/elements/edit.svg" 
                                                 alt="Créer" 
                                                 height={20} 
                                                 width={20} 
