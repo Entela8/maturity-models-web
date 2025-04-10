@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStores } from '../../Stores';
 import User from '../../Utils/Types/user';
 import { Role } from '../../Utils/Types/role';
@@ -9,6 +9,16 @@ import { isAxiosError } from 'axios';
 
 const Register = observer(() => {
     const { apiStore } = useStores();
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const [registerError, setRegisterError] = useState<boolean>(false);
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const teamFromUrl = searchParams.get('team');
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setUser({ ...user, [e.target.name]: e.target.value });
+    };
+
     const [user, setUser] = useState<User>({
         id: undefined,
         username: '',
@@ -18,22 +28,12 @@ const Register = observer(() => {
         password: '',
         role: Role.MEMBER,
         lastActivity: new Date(),
+        teamId: teamFromUrl ?? ''
     });
-
-    const [loading, setLoading] = useState<boolean>(false);
-    const [registerError, setRegisterError] = useState<boolean>(false);
-
-    const navigate = useNavigate();
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
-    };
 
     const attemptRegister = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
-
-        console.log('User Data:', JSON.stringify(user, null, 3));
 
         try {
             await apiStore.post('users/register', user);
@@ -107,6 +107,16 @@ const Register = observer(() => {
                         onChange={handleChange}
                         className='login-input'
                         placeholder='Mot de passe'
+                    />
+                    <input
+                        type='text'
+                        name='teamId'
+                        required
+                        value={user.teamId}
+                        onChange={handleChange}
+                        className='login-input'
+                        placeholder='Team ID'    
+                        readOnly={!!teamFromUrl}
                     />
                     <select
                         name='role'
