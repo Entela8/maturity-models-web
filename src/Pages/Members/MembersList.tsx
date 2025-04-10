@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Snackbar, Alert } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { useStores } from '../../Stores';
 import HeaderMenu from '../../Components/HeaderMenu';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
@@ -15,7 +14,7 @@ const MembersList = (observer(() =>
      const [teamId, setTeamId] = useState<string>(userStore.teamId || '');
      const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
-	const navigate = useNavigate();
+	//const navigate = useNavigate();
 
      const sendInvitationEmail = async () => {
           if (!email || !teamId) return;

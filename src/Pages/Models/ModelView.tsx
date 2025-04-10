@@ -5,8 +5,6 @@ import {
   CardContent,
   Button,
   CircularProgress,
-  Typography,
-  Box,
   Grid2,
 } from "@mui/material";
 import { Model } from "../../Utils/Types/model";
@@ -23,7 +21,7 @@ export default function ModelView() {
   useEffect(() => {
     if (id) 
       getModel(id);
-  }, [id]);
+  }, []);
 
   const getModel = async (modelId: string) => {
     setLoading(true);
@@ -42,7 +40,7 @@ export default function ModelView() {
   const deleteModel = async () => {
     setLoading(true);
     try {
-      const response = await apiStore.delete(`models/${id}`, {
+      await apiStore.delete(`models/${id}`, {
         Authorization: `Bearer ${userStore.token}`,
       });
       navigate('/models')

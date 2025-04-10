@@ -14,7 +14,7 @@ const ModelList = () => {
 
   useEffect(() => {
       getModels();
-  }, [userStore.token]);
+  }, []);
 
   const getModels = async () => {
     setLoading(true);

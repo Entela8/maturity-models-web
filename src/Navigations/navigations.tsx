@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../Pages/User/Login";
 import Home from "../Pages/Home";
-import { ProtectedRoute } from "./ProtectedRoute";
 import Dashboard from "../Pages/Dashboard";
 import Register from "../Pages/User/Register";
 import CreateModel from "../Pages/Models/CreateModel";

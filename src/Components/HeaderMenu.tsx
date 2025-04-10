@@ -1,13 +1,12 @@
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import React, {useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, Divider, Drawer, IconButton, Stack } from "@mui/material";
+import { Divider, Drawer, IconButton, Stack } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DevicesIcon from '@mui/icons-material/Devices';
 import HomeIcon from '@mui/icons-material/Home';
-import DescriptionIcon from '@mui/icons-material/Description';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useStores } from "../Stores";
@@ -19,7 +18,7 @@ interface HeaderMenuProps {
 }
 
 const HeaderMenu = (observer(({ allowBack, headerText }: HeaderMenuProps) => {
-     const {userStore, apiStore} = useStores()
+     const {userStore} = useStores()
      const [drawerOpen, setdrawerOpen] = useState<boolean>(false);
      const navigate = useNavigate();
 
