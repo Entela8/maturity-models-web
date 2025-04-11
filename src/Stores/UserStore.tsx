@@ -20,11 +20,10 @@ export default class UserStore {
     }
 
     @action
-    async setUser(user: user | undefined, token?: string, refreshToken?: string, teamId?: string | undefined) {
+    async setUser(user: user | undefined, token?: string, refreshToken?: string) {
         this.user = user;
         this.token = token;
         this.refreshToken = refreshToken;
-        this.teamId = teamId;
 
         if (user?.id) {
             localStorage.setItem("user", JSON.stringify(user));
@@ -36,8 +35,8 @@ export default class UserStore {
 
     @action
     async setUserFromApiResponse(payload: AuthPayload) {
-        const { user, token, refreshToken, teamId } = payload;
-        this.setUser(user, token, refreshToken, teamId);
+        const { user, token, refreshToken} = payload;
+        this.setUser(user, token, refreshToken);
     }
 
 

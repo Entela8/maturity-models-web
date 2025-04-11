@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useStores } from '../Stores';
 import HeaderMenu from '../Components/HeaderMenu';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { Role } from '../Utils/Types/role';
 
 const Dashboard = observer(() => {
     const { userStore, apiStore } = useStores();
@@ -71,7 +72,7 @@ const Dashboard = observer(() => {
                 </h1>
 
                 <div>
-                    {role === 'OWNER' && (
+                    {role === Role.OWNER && (
                         <div>
                             <Card>
                                 <CardContent>
@@ -138,7 +139,7 @@ const Dashboard = observer(() => {
                         </div>
                     )}
                     
-                    {role === 'TEAM LEADER' && (
+                    {role === Role.TEAM_LEADER && (
                         <>
                             <div>
                                 <Card>
@@ -169,7 +170,7 @@ const Dashboard = observer(() => {
                         </>
                     )}
                     
-                    {role === 'MEMBER' && (
+                    {role === Role.MEMBER && (
                         <>
                             <div>
                                 <Card>

@@ -28,7 +28,7 @@ const Register = observer(() => {
         password: '',
         role: Role.MEMBER,
         lastActivity: new Date(),
-        teamId: teamFromUrl ?? ''
+        team: teamFromUrl ?? ''
     });
 
     const attemptRegister = async (event: FormEvent<HTMLFormElement>) => {
@@ -112,7 +112,7 @@ const Register = observer(() => {
                         type='text'
                         name='teamId'
                         required
-                        value={user.teamId}
+                        value={user.team}
                         onChange={handleChange}
                         className='login-input'
                         placeholder='Team ID'    

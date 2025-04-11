@@ -5,5 +5,4 @@ export interface AuthPayload {
     user: User;
     token: string;
     refreshToken: string;
-    teamId: string;
 }

@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Snackbar, Alert } from '@mui/material';
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Snackbar, Alert, TableContainer, TableBody, Table, TableRow, IconButton, TableCell, Avatar, TableHead, Paper } from '@mui/material';
 import { useStores } from '../../Stores';
 import HeaderMenu from '../../Components/HeaderMenu';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { UserDTO } from '../../Utils/Types/user';
 
 const MembersList = (observer(() => 
 {
     	const { userStore, apiStore } = useStores()
      const [loading, setLoading] = useState<boolean>(false);
      const [openDialog, setOpenDialog] = useState<boolean>(false);
+     const [members, setMembers] = useState<UserDTO[] | undefined>();
      const [email, setEmail] = useState<string>('');
      const [teamId, setTeamId] = useState<string>(userStore.teamId || '');
-     const [showSuccess, setShowSuccess] = useState<boolean>(false);
+     const [showSuccess, setShowSuccess] = useState<boolean>(false);;
 
-	//const navigate = useNavigate();
+     useEffect(() => {
+          getMembers();
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+     }, []);
 
      const sendInvitationEmail = async () => {
           if (!email || !teamId) return;
@@ -64,6 +69,23 @@ const MembersList = (observer(() =>
           }
      };
 
+     const getMembers = async () => {
+          setLoading(true);
+
+          try {
+               const data = await apiStore.get(`team/${userStore.user?.team}/members`, {
+                    Authorization: `Bearer ${userStore.token}`,
+               }) as UserDTO[];
+          
+               setMembers(data);
+          } catch (error) {
+               console.error("Erreur lors de la récupération des modèles :", error);
+          }
+          finally {
+               setLoading(false);
+          }
+     };
+
 	return (
 		<>
                {loading && 
@@ -72,6 +94,7 @@ const MembersList = (observer(() =>
                     </div>
                }
                <HeaderMenu headerText={"Liste des members du Team"} />
+               <h1>{userStore.teamId}</h1>
 
                <div className='member-list-container'>
                     <Button 
@@ -168,6 +191,74 @@ const MembersList = (observer(() =>
                          theme="dark"
                          transition={Bounce}
                     />
+
+                    <TableContainer component={Paper}>
+                         <Table aria-label='simple table'>
+                         <TableHead>
+                              <TableRow>
+                                   <TableCell
+                                        className='table-head-title'
+                                   >
+                                        ID
+                                   </TableCell>
+                                   <TableCell
+                                        className='table-head-title'
+                                   >
+                                        Username
+                                   </TableCell>
+                                   <TableCell
+                                        className='table-head-title'
+                                   >
+                                        Nom
+                                   </TableCell>
+                                   <TableCell
+                                        className='table-head-title'
+                                   >
+                                        Prénom
+                                   </TableCell>
+                                   <TableCell
+                                        className='table-head-title'
+                                   >
+                                        Email
+                                   </TableCell>
+                                   <TableCell
+                                        className='table-head-title'
+                                   >
+                                        Role
+                                   </TableCell>
+                              </TableRow>
+                         </TableHead>
+                         <TableBody>
+                            {members?.map((member, index) => (
+                                <TableRow
+                                    key={index}
+                                    sx={{
+                                        '&:last-child td, &:last-child th': { border: 0 },
+                                    }}
+                                >
+                                    <TableCell align='center'>
+                                        {member.id}
+                                    </TableCell>
+                                    <TableCell align='center'>
+                                        {member.username}
+                                    </TableCell>
+                                    <TableCell align='center'>
+                                        {member.firstName}
+                                    </TableCell>
+                                    <TableCell align='center'>
+                                        {member.lastName}
+                                    </TableCell>
+                                    <TableCell align='center'>
+                                        {member.email}
+                                    </TableCell>
+                                    <TableCell align='center'>
+                                        {member.role}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                         </Table>
+                    </TableContainer>
                </div>
 		</>
 	);
