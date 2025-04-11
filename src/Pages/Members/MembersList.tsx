@@ -5,7 +5,8 @@ import { useStores } from '../../Stores';
 import HeaderMenu from '../../Components/HeaderMenu';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { UserDTO } from '../../Utils/Types/user';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Role } from '../../Utils/Types/role';
    
 const MembersList = observer(() => 
 {
@@ -18,6 +19,8 @@ const MembersList = observer(() =>
      const [teamId, setTeamId] = useState<string>(id ?? userStore.user!.team!);
 
      const [showSuccess, setShowSuccess] = useState<boolean>(false);;
+
+     const navigate = useNavigate();
 
      useEffect(() => {
           getMembers();
@@ -89,6 +92,21 @@ const MembersList = observer(() =>
           }
      };
 
+     const deleteTeam = async () => {
+          setLoading(true);
+          try {
+            await apiStore.delete(`team/${teamId}`, {
+              Authorization: `Bearer ${userStore.token}`,
+            });
+            navigate('/dashboard');
+          } catch (error) {
+            console.error("Erreur lors de la suppression du modèle :", error);
+          } finally {
+            setLoading(false);
+          }
+        };
+      
+
 	return (
 		<>
                {loading && 
@@ -100,8 +118,27 @@ const MembersList = observer(() =>
                <h1>{userStore.teamId}</h1>
 
                <div className='member-list-container'>
+               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: 40 }}>
+                    {userStore.user?.role === Role.OWNER && (
+                    <Button
+                         variant="outlined"
+                         onClick={deleteTeam}
+                         endIcon={
+                         <img
+                         src="/elements/delete.svg"
+                         alt="Supprimer"
+                         height={20}
+                         width={20}
+                         style={{ filter: 'invert(1)' }}
+                         />
+                         }
+                    >
+                         Supprimer l'équipe
+                    </Button>
+                    )}
+                    {userStore.user?.role !== Role.MEMBER && (
                     <Button 
-                         style={{alignSelf:'flex-end', marginBottom: 40}}
+                         style={{alignSelf:'flex-end'}}
                          variant="text" 
                          onClick={() => setOpenDialog(true)}
                          endIcon={
@@ -116,6 +153,8 @@ const MembersList = observer(() =>
                     > 
                          Ajouter un membre
                     </Button>
+                    )}
+                    </div>
 
                     <Dialog
                          open={openDialog}

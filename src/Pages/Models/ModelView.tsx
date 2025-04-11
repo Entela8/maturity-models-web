@@ -142,7 +142,7 @@ export default function ModelView() {
 
       <div className="model-qa">
         <div className="model-qa">
-          {role === 'OWNER' && (
+          {role === Role.OWNER && (
             <>
               <Button
                 variant="text"
