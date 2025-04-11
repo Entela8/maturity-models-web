@@ -1,20 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import { Button, Card, CardContent } from '@mui/material';
+import { Alert, Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar, TextField, } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useStores } from '../Stores';
 import HeaderMenu from '../Components/HeaderMenu';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 const Dashboard = observer(() => {
-    const { userStore } = useStores();
+    const { userStore, apiStore } = useStores();
     const navigate = useNavigate();
-
+    const [openDialog, setOpenDialog] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [teamName, setTeamName] = useState('');
+    const [showSuccess, setShowSuccess] = useState<boolean>(false);
+    
     if (!userStore.user) {
         navigate('/login');
         return null;
     }
 
     const role = userStore.user.role;
+
+    const createTeam = async (teamName: string) => {
+        setOpenDialog(false);
+        setLoading(true);
+
+        try {
+            const payload = {
+				name: teamName,
+			};            
+
+            await apiStore.post(`team/new`,payload ,
+                {
+                    Authorization: `Bearer ${userStore.token}`,
+                },
+            )
+
+            setShowSuccess(true);
+        } catch (error) {
+            toast.error("Erreur dans la creation du team", {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+        } finally {
+            setLoading(false);
+            setTeamName('');
+        }
+    }
 
     return (
         <>
@@ -39,7 +78,8 @@ const Dashboard = observer(() => {
                                     <h3>Gestion des modèles</h3>
                                     <Button 
                                         variant="contained" 
-                                        fullWidth onClick={() => navigate('/models')}
+                                        fullWidth 
+                                        onClick={() => navigate('/models')}
                                         startIcon={
                                             <img 
                                                 src="/elements/manage.svg" 
@@ -71,6 +111,27 @@ const Dashboard = observer(() => {
                                         }
                                     >
                                         Créer modèle
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                            <Card>
+                                <CardContent>
+                                    <h3>Créer un team</h3>
+                                    <Button 
+                                        variant="contained" 
+                                        fullWidth 
+                                        onClick={() => setOpenDialog(true)}
+                                        startIcon={
+                                            <img 
+                                                src="/elements/edit.svg" 
+                                                alt="Créer" 
+                                                height={20} 
+                                                width={20} 
+                                                style={{ filter: 'invert(1)' }}
+                                            />
+                                        }
+                                    >
+                                        Créer un team
                                     </Button>
                                 </CardContent>
                             </Card>
@@ -118,7 +179,7 @@ const Dashboard = observer(() => {
                                             variant="contained" 
                                             fullWidth onClick={() => navigate('/questions')}
                                         >
-                                            Accéder
+                                            Accéder aux modèles
                                         </Button>
                                     </CardContent>
                                 </Card>
@@ -138,6 +199,75 @@ const Dashboard = observer(() => {
                             </div>
                         </>
                     )}
+
+                    <Dialog
+                        open={openDialog}
+                        onClose={() => setOpenDialog(false)}
+                        slotProps={{
+                        paper: {
+                            component: 'form',
+                            onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+                                event.preventDefault();
+                                if (teamName.trim()) {
+                                    createTeam(teamName);
+                                }
+                            },
+                        },
+                        }}
+                    >
+                        <DialogTitle>Créer un nouveau Team</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Créer un nouveau team avec un nom de Team unique.
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                required
+                                margin="dense"
+                                id="name"
+                                name="name"
+                                label="Team name"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                value={teamName}
+                                onChange={(e) => setTeamName(e.target.value)}
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => setOpenDialog(false)}>Annuler</Button>
+                            <Button type="submit">Envoyer</Button>
+                        </DialogActions>
+                    </Dialog>
+
+                    <Snackbar
+                            open={showSuccess}
+                            autoHideDuration={4000}
+                            onClose={() => setShowSuccess(false)}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    >
+                            <Alert 
+                                severity="success" 
+                                variant="filled" 
+                                onClose={() => setShowSuccess(false)}
+                            >
+                            Team crée avec succées !
+                            </Alert>
+                    </Snackbar>
+
+                    <ToastContainer 
+                        position="bottom-center"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick={false}
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="dark"
+                        transition={Bounce}
+                    />
                 </div>
             </section>
         </div>

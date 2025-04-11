@@ -76,7 +76,23 @@ h1, h2{
     cursor: pointer;
 }
 
+.team-card{
+    padding: 30px;
+    width: 300px;
+    cursor: pointer;
+    text-align: center;
+    text-wrap:wrap;
+}
+
 .models-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 50px 150px;
+    gap: 60px;
+}
+
+.teams-container{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
