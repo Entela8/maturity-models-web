@@ -13,8 +13,6 @@ const ModelList = () => {
   const navigate = useNavigate();
   const { userStore, apiStore } = useStores();
 
-  const role = userStore.user?.role ?? Role.MEMBER;
-
   useEffect(() => {
       getModels();
       // eslint-disable-next-line react-hooks/exhaustive-deps
