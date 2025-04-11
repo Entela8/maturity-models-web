@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ModelDTO } from "../../Utils/Types/model";
 import { useStores } from "../../Stores";
-import { Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import ModelCard from "../../Components/ModelCard";
 import HeaderMenu from "../../Components/HeaderMenu";
 import { Role } from "../../Utils/Types/role";
@@ -46,7 +46,7 @@ const ModelList = () => {
         </div>
       }
       <HeaderMenu headerText={"Liste de modéles de maturité"} />
-
+                            
       <div className="container-list-view">
         <Button 
             variant="text" 
