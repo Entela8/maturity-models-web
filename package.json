@@ -51,11 +51,14 @@
     "react-hook-form": "^7.55.0",
     "react-router-dom": "^7.2.0",
     "react-scripts": "^5.0.1",
+    "react-toastify": "^11.0.5",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/eslint": "~9.6.1",
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0"
+    "@types/react-dom": "^18.0.0",
+    "@types/react-router-dom": "^5.3.3"
   }
 }

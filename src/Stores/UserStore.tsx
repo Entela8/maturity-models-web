@@ -11,6 +11,7 @@ export default class UserStore {
 
     @observable user: user | undefined;
     @observable token: string | undefined;
+    @observable teamId: string | undefined;
     @observable refreshToken: string | undefined;
 
     constructor() {
@@ -19,10 +20,11 @@ export default class UserStore {
     }
 
     @action
-    async setUser(user: user | undefined, token?: string, refreshToken?: string) {
+    async setUser(user: user | undefined, token?: string, refreshToken?: string, teamId?: string | undefined) {
         this.user = user;
         this.token = token;
         this.refreshToken = refreshToken;
+        this.teamId = teamId;
 
         if (user?.id) {
             localStorage.setItem("user", JSON.stringify(user));
@@ -34,8 +36,8 @@ export default class UserStore {
 
     @action
     async setUserFromApiResponse(payload: AuthPayload) {
-        const { user, token, refreshToken } = payload;
-        this.setUser(user, token, refreshToken);
+        const { user, token, refreshToken, teamId } = payload;
+        this.setUser(user, token, refreshToken, teamId);
     }
 
 
@@ -72,7 +74,7 @@ export default class UserStore {
     @action
     async disconnect() {
         this.removeStoredUser();
-        window.location.replace("/login");
+        window.location.replace("/");
     }
 
     @computed get getUser() {

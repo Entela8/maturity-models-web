@@ -1,5 +1,5 @@
 import React from "react";
-import { ModelDTO } from "../../Utils/Types/model";
+import { ModelDTO } from "../Utils/Types/model";
 import { Card } from "@mui/material";
 
 interface ModelCardProps {

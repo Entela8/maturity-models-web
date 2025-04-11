@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Button, TextField, Card, CircularProgress, Stack, Box, Icon } from "@mui/material";
+import { Button, TextField, Card, CircularProgress, Stack, Box } from "@mui/material";
 import { useStores } from '../../Stores';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Model } from "../../Utils/Types/model";

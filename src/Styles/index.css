@@ -207,6 +207,21 @@ h1, h2{
     margin: 25px;
 }
 
+.hamburger-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: '100vh';
+}
+
+.member-list-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
 header {
     display: flex;
     align-items: center;

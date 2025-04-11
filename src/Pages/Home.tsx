@@ -1,7 +1,5 @@
-import React from 'react';
 import { Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useStores } from '../Stores';
 
 const Home = () => {
     const navigate = useNavigate();

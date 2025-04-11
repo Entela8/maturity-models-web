@@ -1,14 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../Pages/User/Login";
 import Home from "../Pages/Home";
-import { ProtectedRoute } from "./ProtectedRoute";
 import Dashboard from "../Pages/Dashboard";
 import Register from "../Pages/User/Register";
 import CreateModel from "../Pages/Models/CreateModel";
 import ModelListView from "../Pages/Models/ModelListView";
 import ModelView from "../Pages/Models/ModelView";
-import Members from "../Pages/Members/Members";
-import AddMembers from "../Pages/Members/AddMembers";
+import MembersList from "../Pages/Members/MembersList";
+
 
 const Navigations = () => {
     return (
@@ -21,8 +20,7 @@ const Navigations = () => {
                 <Route path="/models" element={<ModelListView />} />
                 <Route path="/models/create" element={<CreateModel />} />
                 <Route path="/models/:id" element={<ModelView />} />
-                <Route path="/members" element={<Members />} />
-                <Route path="/members/add" element={<AddMembers />} />
+                <Route path="/members" element={<MembersList />} />
             </Routes>
         </BrowserRouter>
     );
