@@ -5,12 +5,15 @@ import { useStores } from "../../Stores";
 import { Button, CircularProgress } from "@mui/material";
 import ModelCard from "../../Components/ModelCard";
 import HeaderMenu from "../../Components/HeaderMenu";
+import { Role } from "../../Utils/Types/role";
 
 const ModelList = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [apiModels, setApiModels] = useState<ModelDTO[]>([]);
   const navigate = useNavigate();
   const { userStore, apiStore } = useStores();
+
+  const role = userStore.user?.role ?? Role.MEMBER;
 
   useEffect(() => {
       getModels();
@@ -19,11 +22,12 @@ const ModelList = () => {
 
   const getModels = async () => {
     setLoading(true);
+    var data = [] as ModelDTO[];
 
     try {
-        const data = await apiStore.get('models/all', {
-            Authorization: `Bearer ${userStore.token}`,
-        }) as ModelDTO[];
+        data = await apiStore.get('models/all', {
+          Authorization: `Bearer ${userStore.token}`,
+      }) as ModelDTO[]; 
     
         setApiModels(data);
     } catch (error) {
