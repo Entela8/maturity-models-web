@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar, TextField,  } from "@mui/material";
-import Team from "../Utils/Types/team";
-import TeamCard from "../Components/TeamCard";
-import HeaderMenu from "../Components/HeaderMenu";
-import { useStores } from "../Stores";
+import Team from "../../Utils/Types/team";
+import TeamCard from "../../Components/TeamCard";
+import HeaderMenu from "../../Components/HeaderMenu";
+import { useStores } from "../../Stores";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const TeamList = () => {
@@ -100,11 +100,11 @@ const TeamList = () => {
             <p>Aucun team existant.</p>
           ) : (
             teams.map((team: Team) => (
-               <TeamCard
-                    team={team}
-                    key={team.id}
-                    //onClick={() => navigate(`/models/${model.id}`)}
-               />
+              <TeamCard
+                  team={team}
+                  key={team.id}
+                  onClick={() => navigate(`/teams/${team.id}`)}
+              />
             ))
           )}
         </section>

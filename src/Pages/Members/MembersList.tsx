@@ -5,15 +5,18 @@ import { useStores } from '../../Stores';
 import HeaderMenu from '../../Components/HeaderMenu';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { UserDTO } from '../../Utils/Types/user';
-
-const MembersList = (observer(() => 
+import { useParams } from 'react-router-dom';
+   
+const MembersList = observer(() => 
 {
-    	const { userStore, apiStore } = useStores()
+     const { id } = useParams<{ id?: string }>();
+    	const { userStore, apiStore } = useStores();
      const [loading, setLoading] = useState<boolean>(false);
      const [openDialog, setOpenDialog] = useState<boolean>(false);
      const [members, setMembers] = useState<UserDTO[] | undefined>();
      const [email, setEmail] = useState<string>('');
-     const [teamId, setTeamId] = useState<string>(userStore.teamId || '');
+     const [teamId, setTeamId] = useState<string>(id ?? userStore.user!.team!);
+
      const [showSuccess, setShowSuccess] = useState<boolean>(false);;
 
      useEffect(() => {
@@ -73,7 +76,7 @@ const MembersList = (observer(() =>
           setLoading(true);
 
           try {
-               const data = await apiStore.get(`team/${userStore.user?.team}/members`, {
+               const data = await apiStore.get(`team/${teamId}/members`, {
                     Authorization: `Bearer ${userStore.token}`,
                }) as UserDTO[];
           
@@ -98,7 +101,7 @@ const MembersList = (observer(() =>
 
                <div className='member-list-container'>
                     <Button 
-                         style={{alignSelf:'flex-end'}}
+                         style={{alignSelf:'flex-end', marginBottom: 40}}
                          variant="text" 
                          onClick={() => setOpenDialog(true)}
                          endIcon={
@@ -262,6 +265,6 @@ const MembersList = (observer(() =>
                </div>
 		</>
 	);
-}));
+});
 
 export default MembersList;
