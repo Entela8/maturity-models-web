@@ -7,6 +7,7 @@ import CreateModel from "../Pages/Models/CreateModel";
 import ModelListView from "../Pages/Models/ModelListView";
 import ModelView from "../Pages/Models/ModelView";
 import MembersList from "../Pages/Members/MembersList";
+import TeamList from "../Pages/TeamsList";
 
 
 const Navigations = () => {
@@ -21,6 +22,7 @@ const Navigations = () => {
                 <Route path="/models/create" element={<CreateModel />} />
                 <Route path="/models/:id" element={<ModelView />} />
                 <Route path="/members" element={<MembersList />} />
+                <Route path="/teams" element={<TeamList />} />
             </Routes>
         </BrowserRouter>
     );

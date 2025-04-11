@@ -2,6 +2,7 @@ import { observer } from "mobx-react";
 import React, {useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import { Divider, Drawer, IconButton, Stack } from "@mui/material";
+import GroupIcon from '@mui/icons-material/Group';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -57,13 +58,24 @@ const HeaderMenu = (observer(({ allowBack, headerText }: HeaderMenuProps) => {
                          <Stack
                               divider={<Divider orientation="horizontal" sx={{ backgroundColor: "#4A4A95" }} />}
                          >
-                              {userStore.user?.role === Role.OWNER && 
-                              <Link to={"/dashboard"} className="navigation-sector-text">
-                                   <section className="sector-clients">
-                                        <HomeIcon />
-                                        <h4>Accueil</h4>
-                                   </section>
-                              </Link>}
+                              {
+                                   userStore.user?.role === Role.OWNER && 
+                                   <>
+                                   <Link to={"/dashboard"} className="navigation-sector-text">
+                                        <section className="sector-clients">
+                                             <HomeIcon />
+                                             <h4>Accueil</h4>
+                                        </section>
+                                   </Link>
+
+                                   <Link to={"/teams"} className="navigation-sector-text">
+                                        <section className="sector-clients">
+                                             <GroupIcon />
+                                             <h4>Teams</h4>
+                                        </section>
+                                   </Link> 
+                                   </>
+                              }
 
 
                               <Link to={"/models"} className="navigation-sector-text">

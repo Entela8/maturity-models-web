@@ -23,7 +23,7 @@ const MembersList = (observer(() =>
           try {
 
                const response = await apiStore.post(
-                    `team/${teamId}/add-mmber`,
+                    `team/${teamId}/add-member`,
                     { email },
                     {
                          Authorization: `Bearer ${userStore.token}`,
