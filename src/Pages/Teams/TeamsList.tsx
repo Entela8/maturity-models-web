@@ -62,6 +62,7 @@ const TeamList = () => {
           theme: "dark",
           transition: Bounce,
         });
+        console.error(error);
       } finally {
           setLoading(false);
           setTeamName('');

@@ -73,6 +73,9 @@ h1, h2{
 
 .model-card{
     padding: 30px;
+    width: 300px;
+    text-align: center;
+    text-wrap:wrap;
     cursor: pointer;
 }
 
@@ -147,6 +150,22 @@ h1, h2{
     align-items: center;
     justify-content: center;
     gap: 20px;
+}
+
+.model-actions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40;
+    width: 95%;
+}
+
+.model-buttons{
+    flex-direction: row;
+    width: 100%;
+    display: flex;
+    justify-content: space-between
 }
 
 .auth-btn{
@@ -228,6 +247,13 @@ h1, h2{
     justify-content: center;
     align-items: center;
     height: '100vh';
+}
+
+.loading{
+   display:flex;
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
 }
 
 .member-list-container{

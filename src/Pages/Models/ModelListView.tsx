@@ -11,23 +11,23 @@ import HeaderMenu from "../../Components/HeaderMenu";
 import { Role } from "../../Utils/Types/role";
 import { Session } from "../../Utils/Types/session";
 
-
-
 const ModelList = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [apiModels, setApiModels] = useState<ModelDTO[]>([]);
   const [sessions, setSessions] = useState<Session[]>([]);
   const navigate = useNavigate();
   const { userStore, apiStore } = useStores();
-  const role = userStore.user?.role;
   const teamId = userStore.user?.team;
+  const role = userStore.user?.role ?? Role.MEMBER;
 
   useEffect(() => {
-    if (role === Role.OWNER) {
+      if (userStore.user?.role === Role.OWNER) {
+        getAllSessions();
+      }
       getAllModels();
-    } else if (teamId) {
-      getSessionsForTeam(teamId);
-    }
+      if (userStore.user?.role !== Role.OWNER && teamId) {
+        getSessionsForTeam(teamId);
+      }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -52,23 +52,26 @@ const ModelList = () => {
         Authorization: `Bearer ${userStore.token}`,
       }) as Session[];
       setSessions(data);
-
-      const allModels = await apiStore.get("models/all", {
-        Authorization: `Bearer ${userStore.token}`,
-      }) as ModelDTO[];
-
-      const sessionModelIds = new Set(data.map(session => session.modelId));
-      const filteredModels = allModels.filter(model =>
-        sessionModelIds.has(model.id? Number(model.id) : 0)
-      );
-
-      setApiModels(filteredModels);
     } catch (error) {
       console.error("Erreur lors de la récupération des sessions ou modèles :", error);
     } finally {
       setLoading(false);
     }
   };
+
+  const getAllSessions = async () => {
+    setLoading(true);
+    try {
+      const data = await apiStore.get(`sessions/all`, {
+        Authorization: `Bearer ${userStore.token}`,
+      }) as Session[];
+      setSessions(data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des sessions ou modèles :", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const navigateToModelView = (modelId: number) => {
     if (role === Role.OWNER) {
@@ -88,7 +91,7 @@ const ModelList = () => {
   return (
     <>
       {loading && 
-        <div style={{ alignItems: 'center' }}>
+        <div className='loading'>
           <CircularProgress />
         </div>
       }
@@ -115,17 +118,28 @@ const ModelList = () => {
         )}
 
         <section className="models-container">  
-          {apiModels.length === 0 ? (
-            <p>Aucun modèle disponible.</p>
-          ) : (
-            apiModels.map((model: ModelDTO) => (
-              <ModelCard
-                model={model}
-                key={model.id}
-                onClick={() => navigateToModelView(model.id? Number(model.id) : 0)}
-              />
-            ))
-          )}
+          {
+            apiModels.length === 0 ? (
+              <p>Aucun modèle disponible.</p>
+            ) :
+            (
+              apiModels.map((model: ModelDTO) => {
+              const hasActiveSession = sessions.some(
+                session => session.modelId === model.id && session.active
+              );
+            
+              return (
+                <ModelCard
+                  model={model}
+                  key={model.id}
+                  onClick={() => navigateToModelView(model.id ? Number(model.id) : 0)}
+                  style={hasActiveSession ? { border: '2px solid green' } : {}}
+                />
+              );
+            })
+            
+            )
+          }
         </section>
       </div>
     </>

@@ -4,13 +4,14 @@ import { Card } from "@mui/material";
 
 interface ModelCardProps {
      model: ModelDTO;
+     style?: React.CSSProperties
      onClick?: () => void;
    }
    
-   const ModelCard: React.FC<ModelCardProps> = ({ model, onClick }) => {
+   const ModelCard: React.FC<ModelCardProps> = ({ model, style, onClick }) => {
 
   return (
-     <Card className="model-card" onClick={onClick}>
+     <Card className="model-card" onClick={onClick} style={style}>
           <div>
                <h3>{model.title}</h3>
           </div>

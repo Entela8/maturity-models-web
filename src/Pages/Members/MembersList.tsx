@@ -17,6 +17,7 @@ const MembersList = observer(() =>
      const [members, setMembers] = useState<UserDTO[] | undefined>();
      const [email, setEmail] = useState<string>('');
      const [teamId, setTeamId] = useState<string>(id ?? userStore.user!.team!);
+     const [role, setRole] = useState<string>('');
 
      const [showSuccess, setShowSuccess] = useState<boolean>(false);;
 
@@ -31,31 +32,20 @@ const MembersList = observer(() =>
           if (!email || !teamId) return;
           setOpenDialog(false);
           setLoading(true);
-          try {
 
-               const response = await apiStore.post(
+          const payload = {
+               email: email,
+               role: role
+          }
+          try {
+               await apiStore.post(
                     `team/${teamId}/add-member`,
-                    { email },
+                    payload,
                     {
                          Authorization: `Bearer ${userStore.token}`,
                     },
                ) as any;
 
-               if (response.status === 200) {
-                    setShowSuccess(true);
-               } else {
-                    toast.error("Erreur dans l'envoi du mail", {
-                              position: "bottom-center",
-                              autoClose: 5000,
-                              hideProgressBar: false,
-                              closeOnClick: false,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                              theme: "dark",
-                              transition: Bounce,
-                    });
-               }
                setShowSuccess(true);
           } catch (error) {
                toast.error("Erreur dans l'envoi du mail", {
@@ -69,6 +59,7 @@ const MembersList = observer(() =>
                     theme: "dark",
                     transition: Bounce,
                });
+               console.error(error);
           } finally {
                setLoading(false);
                setEmail('');
@@ -98,7 +89,7 @@ const MembersList = observer(() =>
             await apiStore.delete(`team/${teamId}`, {
               Authorization: `Bearer ${userStore.token}`,
             });
-            navigate('/dashboard');
+            navigate('/teams');
           } catch (error) {
             console.error("Erreur lors de la suppression du modèle :", error);
           } finally {
@@ -106,14 +97,14 @@ const MembersList = observer(() =>
           }
         };
       
+     if (loading) {
+          <div className='loading'>
+               <CircularProgress />
+          </div>
+     }
 
 	return (
 		<>
-               {loading && 
-                    <div className='hamburger-div'>
-                         <CircularProgress />
-                    </div>
-               }
                <HeaderMenu headerText={"Liste des members du Team"} />
                <h1>{userStore.teamId}</h1>
 
@@ -198,6 +189,21 @@ const MembersList = observer(() =>
                               value={teamId}
                               onChange={(e) => setTeamId(e.target.value)}
                          />
+                         <select
+                              name='role'
+                              required
+                              style={{width: '100%'}}
+                              onChange={(e) => setRole(e.target.value)}
+                              className='login-input'
+                         >
+                              <option value="">Sélectionnez un rôle</option>
+                              {Object.entries(Role)
+                                   .filter(([key, value]) => key === 'MEMBER' || key === 'TEAM_LEADER')
+                                   .map(([key, value]) => (
+                                        <option key={key} value={key}>{value}</option>
+                                   ))
+                              }
+                         </select>
                          </DialogContent>
                          <DialogActions>
                          <Button onClick={() => setOpenDialog(false)}>Annuler</Button>

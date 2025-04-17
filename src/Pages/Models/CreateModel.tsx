@@ -144,7 +144,7 @@ export default function MaturityModel() {
   return (
     <>
       {loading && (
-        <div style={{ justifyContent: 'center', alignContent: 'center' }}>
+        <div className='loading'>
           <CircularProgress />
         </div>
       )}

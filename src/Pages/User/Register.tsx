@@ -14,7 +14,8 @@ const Register = observer(() => {
     const [registerError, setRegisterError] = useState<boolean>(false);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const teamFromUrl = searchParams.get('team');
+    const teamFromUrl = searchParams.get('team')
+    const roleFromUrl = searchParams.get('role') as Role;
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
@@ -26,7 +27,7 @@ const Register = observer(() => {
         firstName: '',
         lastName: '',
         password: '',
-        role: Role.MEMBER,
+        role: roleFromUrl ?? Role.MEMBER,
         lastActivity: new Date(),
         team: teamFromUrl ?? ''
     });
@@ -36,7 +37,14 @@ const Register = observer(() => {
         setLoading(true);
 
         try {
-            await apiStore.post('users/register', user);
+            const updatedUser = {
+                ...user,
+                teamId: user.team ? Number(user.team) : null
+            };
+            console.log(updatedUser);
+    
+            await apiStore.post('users/register', updatedUser);
+            console.dir(user)
             navigate('/login');
         } catch (error) {
             console.error('An error occurred during registration:', error);
@@ -118,17 +126,21 @@ const Register = observer(() => {
                         placeholder='Team ID'    
                         readOnly={!!teamFromUrl}
                     />
-                    <select
-                        name='role'
-                        required
-                        onChange={handleChange}
-                        className='login-input'
-                    >
-                        <option value="">Sélectionnez un rôle</option>
-                            {Object.entries(Role).map(([key, value]) => (
-                                <option key={key} value={key}>{value}</option>
-                            ))}
-                    </select>
+                    {!roleFromUrl &&
+                        <select
+                            name='role'
+                            required
+                            onChange={handleChange}
+                            className='login-input'
+                        >
+                            <option value="">Sélectionnez un rôle</option>
+                                {Object.entries(Role).map(([key, value]) => 
+                                    (
+                                        <option key={key} value={key}>{value}</option>
+                                    ))
+                                }
+                        </select>
+                    }
                     <div style={{ textAlign: 'center', marginTop: 16 }}>
                         <button type='submit' className='login-submit-button'>S&apos;inscrire</button>
                     </div>

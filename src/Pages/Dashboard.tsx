@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import { Alert, Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar, TextField, } from '@mui/material';
+import { Alert, Button, Card, CardContent, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar, TextField, } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useStores } from '../Stores';
 import HeaderMenu from '../Components/HeaderMenu';
@@ -50,6 +50,7 @@ const Dashboard = observer(() => {
                 theme: "dark",
                 transition: Bounce,
             });
+            console.error(error)
         } finally {
             setLoading(false);
             setTeamName('');
@@ -58,6 +59,11 @@ const Dashboard = observer(() => {
 
     return (
         <>
+        {loading && 
+            <div className='hamburger-div'>
+                    <CircularProgress />
+            </div>
+        }
         <HeaderMenu headerText={"Bienvenue " + userStore.user?.firstName}  />
 
         <div style={{padding: 20}}>
@@ -178,7 +184,7 @@ const Dashboard = observer(() => {
                                         <h3>Répondre aux questions</h3>
                                         <Button 
                                             variant="contained" 
-                                            fullWidth onClick={() => navigate('/questions')}
+                                            fullWidth onClick={() => navigate('/models')}
                                         >
                                             Accéder aux modèles
                                         </Button>

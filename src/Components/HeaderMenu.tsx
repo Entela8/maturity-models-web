@@ -58,25 +58,21 @@ const HeaderMenu = (observer(({ allowBack, headerText }: HeaderMenuProps) => {
                          <Stack
                               divider={<Divider orientation="horizontal" sx={{ backgroundColor: "#4A4A95" }} />}
                          >
+                              <Link to={"/dashboard"} className="navigation-sector-text">
+                                   <section className="sector-clients">
+                                        <HomeIcon />
+                                        <h4>Accueil</h4>
+                                   </section>
+                              </Link>
                               {
-                                   userStore.user?.role === Role.OWNER && 
-                                   <>
-                                   <Link to={"/dashboard"} className="navigation-sector-text">
-                                        <section className="sector-clients">
-                                             <HomeIcon />
-                                             <h4>Accueil</h4>
-                                        </section>
-                                   </Link>
-
+                              userStore.user?.role === Role.OWNER && 
                                    <Link to={"/teams"} className="navigation-sector-text">
                                         <section className="sector-clients">
                                              <GroupIcon />
                                              <h4>Teams</h4>
                                         </section>
                                    </Link> 
-                                   </>
                               }
-
 
                               <Link to={"/models"} className="navigation-sector-text">
                                    <section className="sector-clients">
@@ -97,12 +93,6 @@ const HeaderMenu = (observer(({ allowBack, headerText }: HeaderMenuProps) => {
                          </Stack>
                          </div>
                          <div>
-                         <section className="sector-clients navigation-sector-text drawer-bottom-align">
-                              <SettingsIcon />
-                              <Link to={"/profile"} style={{ textDecoration: 'none' }}>
-                                   <h4>Paramètres</h4>
-                              </Link>
-                         </section>
                          <section className="sector-clients navigation-sector-text">
                               <LogoutIcon />
                               <div onClick={() => disconnect()} >
