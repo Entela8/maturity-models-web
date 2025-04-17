@@ -38,8 +38,7 @@ export default function ModelView() {
 
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
   const [selectedTeam, setSelectedTeam] = useState<number | string>('');
-  const [teamName, setTeamName] = useState('');
-  const [teamDescription, setTeamDescription] = useState('');
+  const sessionId = localStorage.getItem("selectedSessionId");
 
   useEffect(() => {
     if (id) getModel(id);
@@ -89,44 +88,67 @@ export default function ModelView() {
     }
   };
 
-  const handleSelectAnswer = (questionId: number, answerId: number) => {
+  const selectAnswer = (questionId: number, answerId: number) => {
     setSelectedAnswers((prev) => ({
       ...prev,
       [questionId]: answerId,
     }));
   };
 
-  const handleSubmitAnswers = () => {
-    const payload = Object.entries(selectedAnswers).map(([question_id, answer_id]) => ({
-      question_id: Number(question_id),
-      answer_id: answer_id,
+  const submitResponses = async () => {
+  
+    const responses = Object.entries(selectedAnswers).map(([questionId, answerId]) => ({
+      questionId: questionId.toString(),
+      answerId: answerId.toString(),
     }));
-    console.log("Réponses à envoyer :", JSON.stringify(payload, null, 2));
-    // Tu peux faire un apiStore.post() ici si besoin
-  };
-
-  const handleAddTeam = async () => {
-    if (!teamName || !teamDescription) {
-      console.error("Nom et description de l'équipe sont requis");
-      return;
-    }
-    const newTeam = {
-      name: teamName,
-      description: teamDescription,
+  
+    const payload = {
+      sessionId,
+      responses,
     };
+  
+    console.log("Payload à envoyer :", payload);
+  
     try {
-      setLoading(true);
-      const response = await apiStore.post('team/add', newTeam, {
+      const response = await apiStore.post("response/add", payload, {
         Authorization: `Bearer ${userStore.token}`,
       });
-      //setTeams([...teams, response.data]);
+  
+      console.log("Réponses envoyées avec succès :", response);
+      alert("Réponses envoyées !");
+    } catch (error) {
+      console.error("Erreur lors de l'envoi des réponses :", error);
+      alert("Échec de l'envoi des réponses");
+    }
+  };
+
+  const submitSession = async () => {
+    if (!selectedTeam || !id) {
+      console.error("L'équipe ou le modèle est manquant");
+      return;
+    }
+  
+    try {
+      setLoading(true);
+      
+      const payload = {
+        modelId: Number(id),
+        teamId: Number(selectedTeam),
+      };
+  
+      const response = await apiStore.post("sessions/activate", payload, {
+        Authorization: `Bearer ${userStore.token}`,
+      });
+  
+      console.log("Session activée :", response);
       setOpenAddTeamDialog(false);
     } catch (error) {
-      console.error("Erreur lors de l'ajout de l'équipe :", error);
+      console.error("Erreur lors de l'activation de la session :", error);
     } finally {
       setLoading(false);
     }
   };
+  
 
   if (loading || !model) {
     return (
@@ -208,7 +230,7 @@ export default function ModelView() {
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={() => setOpenAddTeamDialog(false)}>Annuler</Button>
-                  <Button onClick={handleAddTeam}>Ajouter</Button>
+                  <Button onClick={submitSession}>Ajouter</Button>
                 </DialogActions>
               </Dialog>
             </>
@@ -231,7 +253,7 @@ export default function ModelView() {
                           fullWidth
                           variant={isSelected ? "contained" : "outlined"}
                           color={isSelected ? "primary" : "inherit"}
-                          onClick={() => mode === "edit" && question.id !== undefined && answer.id !== undefined && handleSelectAnswer(question.id, answer.id)}
+                          onClick={() => mode === "edit" && question.id !== undefined && answer.id !== undefined && selectAnswer(question.id, answer.id)}
                           disabled={mode === "view"}
                           sx={{
                             textTransform: 'none',
@@ -257,7 +279,7 @@ export default function ModelView() {
           <Button
             variant="contained"
             color="success"
-            onClick={handleSubmitAnswers}
+            onClick={submitResponses}
             sx={{ marginTop: 4 }}
           >
             Envoyer les réponses

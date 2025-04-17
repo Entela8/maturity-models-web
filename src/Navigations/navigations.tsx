@@ -8,6 +8,7 @@ import ModelListView from "../Pages/Models/ModelListView";
 import ModelView from "../Pages/Models/ModelView";
 import MembersList from "../Pages/Members/MembersList";
 import TeamList from "../Pages/Teams/TeamsList";
+import RadarChartPage from "../Pages/RadarChartPage";
 
 
 const Navigations = () => {
@@ -23,6 +24,7 @@ const Navigations = () => {
                 <Route path="/models/:id" element={<ModelView />} />
                 <Route path="/teams/:id" element={<MembersList />} />
                 <Route path="/teams" element={<TeamList />} />
+                <Route path="/radar" element={<RadarChartPage />} />
             </Routes>
         </BrowserRouter>
     );
