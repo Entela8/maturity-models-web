@@ -8,8 +8,8 @@ import ModelListView from "../Pages/Models/ModelListView";
 import ModelView from "../Pages/Models/ModelView";
 import MembersList from "../Pages/Members/MembersList";
 import TeamList from "../Pages/Teams/TeamsList";
-import RadarChartPage from "../Pages/RadarChartPage";
-
+import RadarChartPage from "../Pages/Responses/RadarChartPage";
+import SessionListView from "../Pages/Responses/SessionsListView";
 
 const Navigations = () => {
     return (
@@ -24,7 +24,8 @@ const Navigations = () => {
                 <Route path="/models/:id" element={<ModelView />} />
                 <Route path="/teams/:id" element={<MembersList />} />
                 <Route path="/teams" element={<TeamList />} />
-                <Route path="/radar" element={<RadarChartPage />} />
+                <Route path="/results" element={<SessionListView />} />
+                <Route path="/results/:modelId/:sessionId" element={<RadarChartPage />} />
             </Routes>
         </BrowserRouter>
     );

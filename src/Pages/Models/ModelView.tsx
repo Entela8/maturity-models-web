@@ -105,15 +105,12 @@ export default function ModelView() {
       sessionId,
       responses,
     };
-  
-    console.log("Payload à envoyer :", payload);
-  
+    
     try {
-      const response = await apiStore.post("response/add", payload, {
+      await apiStore.post("response/add", payload, {
         Authorization: `Bearer ${userStore.token}`,
       });
-  
-      console.log("Réponses envoyées avec succès :", response);
+      navigate('/models');
       alert("Réponses envoyées !");
     } catch (error) {
       console.error("Erreur lors de l'envoi des réponses :", error);
@@ -141,6 +138,7 @@ export default function ModelView() {
   
       console.log("Session activée :", response);
       setOpenAddTeamDialog(false);
+      await getActiveSessions();
     } catch (error) {
       console.error("Erreur lors de l'activation de la session :", error);
     } finally {

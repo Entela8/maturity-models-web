@@ -4,4 +4,5 @@ export interface Session {
   teamId: number;
   active: boolean;
   date: string;
+  teamName: string | undefined;
 }

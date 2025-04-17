@@ -1,15 +1,15 @@
 import React from "react";
-import { ModelDTO } from "../Utils/Types/model";
 import { Card } from "@mui/material";
+import { Session } from "../Utils/Types/session";
 
-interface ModelCardProps {
-     model: ModelDTO;
+interface SessionCardProps {
+     session: Session;
      style?: React.CSSProperties;
      onClick?: () => void;
      disabled?: boolean;
    }
    
-   const ModelCard: React.FC<ModelCardProps> = ({ model, style, onClick, disabled }) => {
+   const SessionCard: React.FC<SessionCardProps> = ({ session, style, onClick, disabled }) => {
      const handleClick = () => {
        if (disabled) {
          alert("Le modèle n'est pas encore actif");
@@ -28,10 +28,10 @@ interface ModelCardProps {
          style={style}
        >
          <div>
-           <h3>{model.title}</h3>
+           <h3>{session.date}</h3>
          </div>
        </Card>
      );
 };
 
-export default ModelCard;
+export default SessionCard;

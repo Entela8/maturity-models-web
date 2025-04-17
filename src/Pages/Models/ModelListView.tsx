@@ -131,6 +131,7 @@ const ModelList = () => {
               return (
                 <ModelCard
                   model={model}
+                  disabled={userStore.user?.role === Role.MEMBER && !hasActiveSession}
                   key={model.id}
                   onClick={() => navigateToModelView(model.id ? Number(model.id) : 0)}
                   style={hasActiveSession ? { border: '2px solid green' } : {}}
