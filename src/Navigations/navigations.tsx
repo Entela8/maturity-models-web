@@ -10,22 +10,23 @@ import MembersList from "../Pages/Members/MembersList";
 import TeamList from "../Pages/Teams/TeamsList";
 import RadarChartPage from "../Pages/Responses/RadarChartPage";
 import SessionListView from "../Pages/Responses/SessionsListView";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 const Navigations = () => {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<Login />} />
-                <Route path="/" element={<Home />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/models" element={<ModelListView />} />
-                <Route path="/models/create" element={<CreateModel />} />
-                <Route path="/models/:id" element={<ModelView />} />
-                <Route path="/teams/:id" element={<MembersList />} />
-                <Route path="/teams" element={<TeamList />} />
-                <Route path="/results" element={<SessionListView />} />
-                <Route path="/results/:modelId/:sessionId" element={<RadarChartPage />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
+                <Route path="/models" element={<ProtectedRoute element={<ModelListView />} />} />
+                <Route path="/models/create" element={<ProtectedRoute element={<CreateModel />} />} />
+                <Route path="/models/:id" element={<ProtectedRoute element={<ModelView />} />} />
+                <Route path="/teams/:id" element={<ProtectedRoute element={<MembersList />} />} />
+                <Route path="/teams" element={<ProtectedRoute element={<TeamList />} />} />
+                <Route path="/results" element={<ProtectedRoute element={<SessionListView />} />} />
+                <Route path="/results/:modelId/:sessionId" element={<ProtectedRoute element={<RadarChartPage />} />} />
             </Routes>
         </BrowserRouter>
     );
