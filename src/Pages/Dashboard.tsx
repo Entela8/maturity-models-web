@@ -153,7 +153,8 @@ const Dashboard = observer(() => {
                                         <h3>Gérer l'équipe</h3>
                                         <Button 
                                             variant="contained" 
-                                            fullWidth onClick={() => navigate('/team')}
+                                            fullWidth 
+                                            onClick={() => navigate(`/team/${userStore.user?.team}`)}
                                         >
                                             Inviter des membres
                                         </Button>
