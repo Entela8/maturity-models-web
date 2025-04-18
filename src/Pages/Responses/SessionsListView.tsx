@@ -18,7 +18,7 @@ const SessionListView = () => {
      const teamId = userStore.user?.team;
 
      useEffect(() => {
-          if (userStore.user?.role===Role.OWNER || userStore.user?.role===Role.ADMIN){
+          if (userStore.user?.role===Role.MEMBER || userStore.user?.role===Role.TEAM_LEADER){
                getSessionsForTeam();
           }
           if (userStore.user?.role===Role.OWNER || userStore.user?.role===Role.ADMIN){
