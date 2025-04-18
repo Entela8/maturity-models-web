@@ -34,7 +34,7 @@ const SessionListView = () => {
               Authorization: `Bearer ${userStore.token}`,
             }) as Session[];
             console.dir(data)
-            // Keep only deactivated sessions
+
             const inactiveSessions = data.filter(session => !session.active);
             setSessions(inactiveSessions);
           } catch (error) {

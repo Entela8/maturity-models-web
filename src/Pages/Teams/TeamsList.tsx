@@ -6,6 +6,7 @@ import TeamCard from "../../Components/TeamCard";
 import HeaderMenu from "../../Components/HeaderMenu";
 import { useStores } from "../../Stores";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Role } from "../../Utils/Types/role";
 
 const TeamList = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -80,6 +81,7 @@ const TeamList = () => {
       <HeaderMenu headerText={"Liste des teams"} />
 
       <div className="container-list-view">
+        {userStore.user?.role===Role.OWNER &&
           <Button 
                variant="text"
                onClick={() => setOpenDialog(true)}
@@ -95,6 +97,7 @@ const TeamList = () => {
           > 
                Ajouter un team
           </Button>
+        }
 
         <section className="teams-container">  
           {teams.length === 0 ? (

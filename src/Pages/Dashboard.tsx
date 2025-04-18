@@ -6,6 +6,8 @@ import { useStores } from '../Stores';
 import HeaderMenu from '../Components/HeaderMenu';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { Role } from '../Utils/Types/role';
+import PersonIcon from '@mui/icons-material/Person';
+import ShowChartIcon from '@mui/icons-material/ShowChart';
 
 const Dashboard = observer(() => {
     const { userStore, apiStore } = useStores();
@@ -61,10 +63,10 @@ const Dashboard = observer(() => {
         <>
         {loading && 
             <div className='hamburger-div'>
-                    <CircularProgress />
+                <CircularProgress />
             </div>
         }
-        <HeaderMenu headerText={"Bienvenue " + userStore.user?.firstName}  />
+        <HeaderMenu headerText={"Bienvenue, " + userStore.user?.firstName}  />
 
         <div style={{padding: 20}}>
 
@@ -145,7 +147,7 @@ const Dashboard = observer(() => {
                         </div>
                     )}
                     
-                    {role === Role.TEAM_LEADER && (
+                    {(role === Role.TEAM_LEADER || role === Role.MEMBER) && (
                         <>
                             <div>
                                 <Card>
@@ -155,6 +157,7 @@ const Dashboard = observer(() => {
                                             variant="contained" 
                                             fullWidth 
                                             onClick={() => navigate(`/teams/${userStore.user?.team}`)}
+                                            startIcon={ <PersonIcon /> }
                                         >
                                             Inviter des membres
                                         </Button>
@@ -167,7 +170,15 @@ const Dashboard = observer(() => {
                                         <h3>Voir les modèles</h3>
                                         <Button 
                                             variant="contained" 
-                                            fullWidth onClick={() => navigate('/models')}
+                                            fullWidth 
+                                            onClick={() => navigate('/models')}
+                                            startIcon={<img 
+                                                src="/elements/manage.svg" 
+                                                alt="Créer" 
+                                                height={20} 
+                                                width={20} 
+                                                style={{ filter: 'invert(1)' }}
+                                            />}
                                         >
                                             Accéder aux modèles
                                         </Button>
@@ -176,29 +187,16 @@ const Dashboard = observer(() => {
                             </div>
                         </>
                     )}
-                    
-                    {role === Role.MEMBER && (
-                        <div>
-                            <Card>
-                                <CardContent>
-                                    <h3>Répondre aux questions</h3>
-                                    <Button 
-                                        variant="contained" 
-                                        fullWidth onClick={() => navigate('/models')}
-                                    >
-                                        Accéder aux modèles
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    )}
+
                     <div>
                         <Card>
                             <CardContent>
                                 <h3>Résultats des sessions</h3>
                                 <Button 
                                     variant="contained" 
-                                    fullWidth onClick={() => navigate('/results')}
+                                    fullWidth 
+                                    onClick={() => navigate('/results')}
+                                    startIcon={<ShowChartIcon/>}
                                 >
                                     Voir les résultats
                                 </Button>

@@ -89,7 +89,7 @@ const HeaderMenu = (observer(({ allowBack, headerText }: HeaderMenuProps) => {
 
                               {
                                    userStore.user?.role === Role.TEAM_LEADER &&
-                                   <Link to={"/members"} className="navigation-sector-text">
+                                   <Link to={`/teams/${userStore.user?.team}`} className="navigation-sector-text">
                                         <section className="sector-clients">
                                              <PersonIcon />
                                              <h4>Members</h4>
