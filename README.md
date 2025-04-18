@@ -1,13 +1,29 @@
 # maturity-models-web
 Maturity Models WEB
 
-## But :
-
-* Réaliser une application d'évaluation d'une équipe vis a vis d'un modèle de maturité.
-
 ## Participants
 * MEMA Entela, [Entela8](https://github.com/Entela8)
 * MAURY Corentin, [BattlaGame](https://github.com/BattlaGame)
+
+  
+## But :
+
+* Réaliser une application d'évaluation d'une équipe vis a vis d'un modèle de maturité.
+  
+## Liens et Login
+https://www.maturity-models.oups.net
+
+OWNER ACCOUNT
+username
+```sh
+john
+```
+
+password
+```sh
+mdp
+```
+Le mot de passe sera "mdp" pour tout les utilisateurs que nous avons crée.
 
 
 ## Fonctionnalités
