@@ -11,6 +11,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useStores } from "../Stores";
 import { Role } from "../Utils/Types/role";
+import ShowChartIcon from '@mui/icons-material/ShowChart';
 
 interface HeaderMenuProps {
      allowBack?: boolean
@@ -77,6 +78,12 @@ const HeaderMenu = (observer(({ allowBack, headerText }: HeaderMenuProps) => {
                                    <section className="sector-clients">
                                         <DevicesIcon />
                                         <h4>Maturity Models </h4>
+                                   </section>
+                              </Link>
+                              <Link to={"/results"} className="navigation-sector-text">
+                                   <section className="sector-clients">
+                                        <ShowChartIcon />
+                                        <h4>Résultats session</h4>
                                    </section>
                               </Link>
 

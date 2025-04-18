@@ -7,23 +7,31 @@ import {
 import HeaderMenu from "../../Components/HeaderMenu";
 import { Session } from "../../Utils/Types/session";
 import SessionCard from "../../Components/SessionCard";
+import { Role } from "../../Utils/Types/role";
 
 const SessionListView = () => {
      const [loading, setLoading] = useState<boolean>(false);
      const [sessions, setSessions] = useState<Session[]>([]);
+     const [allSessions, setAllSessions] = useState<Session[]>([]);
      const navigate = useNavigate();
      const { userStore, apiStore } = useStores();
      const teamId = userStore.user?.team;
 
      useEffect(() => {
-          getSessionsForTeam();
+          if (userStore.user?.role===Role.OWNER || userStore.user?.role===Role.ADMIN){
+               getSessionsForTeam();
+          }
+          if (userStore.user?.role===Role.OWNER || userStore.user?.role===Role.ADMIN){
+               getAllSessions()
+          }
      // eslint-disable-next-line react-hooks/exhaustive-deps
      }, []);
 
-     const getSessionsForTeam = async () => {
+     const getSessionsForTeam = async (teamIdAdmin?: string) => {
           setLoading(true);
+          const teamIdToSend = teamId ?? teamIdAdmin
           try {
-            const data = await apiStore.get(`sessions/team/${teamId}`, {
+            const data = await apiStore.get(`sessions/team/${teamIdToSend}`, {
               Authorization: `Bearer ${userStore.token}`,
             }) as Session[];
             console.dir(data)
@@ -37,39 +45,63 @@ const SessionListView = () => {
           }
      };
 
-  return (
-     <>
-     {loading && 
-     <div className='loading'>
-          <CircularProgress />
-     </div>
+
+     const getAllSessions = async () => {
+          setLoading(true);
+          try {
+               const data = await apiStore.get(`sessions/all`, {
+                    Authorization: `Bearer ${userStore.token}`,
+               }) as Session[];
+     
+               const filteredSessions = data.filter(session => session.active === false);
+               setAllSessions(filteredSessions);
+     
+               // Call getSessionsForTeam for each session's teamId
+               await Promise.all(
+                    filteredSessions.map(session => getSessionsForTeam(session.teamId.toString()))
+               );
+     
+          } catch (error) {
+               console.error("Erreur lors de la récupération des sessions ou modèles :", error);
+          } finally {
+               setLoading(false);
+          }
      }
+     
 
-     <HeaderMenu headerText={"Liste des résultats des sessions d'évaluation"} />
+     return (
+          <>
+          {loading && 
+          <div className='loading'>
+               <CircularProgress />
+          </div>
+          }
 
-     <div className="container-list-view">
-          <section className="models-container">  
-               {
-                    sessions.length === 0 ? 
-                    (
-                         <p>Aucune session désactivée trouvée.</p>
-                    ) : (
-                         sessions.map(session => {
-                              return (
-                              <SessionCard
-                                   key={session.id}
-                                   session={session}
-                                   disabled={false}
-                                   onClick={() => navigate(`/results/${session.modelId}/${session.id}`)}
-                                   style={{ border: '2px solid gray' }}
-                              />
-                              );
-                         })
-                    )
-               }
-          </section>
-     </div>
-     </>
+          <HeaderMenu headerText={"Liste des résultats des sessions d'évaluation"} />
+
+          <div className="container-list-view">
+               <section className="models-container">  
+                    {
+                         sessions.length === 0 ? 
+                         (
+                              <p>Aucune session désactivée trouvée.</p>
+                         ) : (
+                              sessions.map(session => {
+                                   return (
+                                   <SessionCard
+                                        key={session.id}
+                                        session={session}
+                                        disabled={false}
+                                        onClick={() => navigate(`/results/${session.modelId}/${session.id}`)}
+                                        style={{ border: '2px solid gray' }}
+                                   />
+                                   );
+                              })
+                         )
+                    }
+               </section>
+          </div>
+          </>
      );
 };
 

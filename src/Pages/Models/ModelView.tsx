@@ -313,9 +313,11 @@ export default function ModelView() {
               )}
             </div>
           )}
-
+        {mode=='edit' &&
+        <h2>Répondre aux questions</h2>
+        }
         {model.questions.map((question) => (
-          <div key={question.id} style={{ marginBottom: 20 }}>
+          <div key={question.id} style={{ marginBottom: 20}}>
             <Card elevation={3} sx={{ borderRadius: 5, width: 700 }}>
               <CardContent>
                 <h3 style={{ textAlign: 'center', fontWeight: 'bold' }}>
