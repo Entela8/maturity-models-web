@@ -313,7 +313,7 @@ export default function ModelView() {
               )}
             </div>
           )}
-        {mode=='edit' &&
+        {mode==='edit' &&
         <h2>Répondre aux questions</h2>
         }
         {model.questions.map((question) => (

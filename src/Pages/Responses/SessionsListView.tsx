@@ -12,7 +12,6 @@ import { Role } from "../../Utils/Types/role";
 const SessionListView = () => {
      const [loading, setLoading] = useState<boolean>(false);
      const [sessions, setSessions] = useState<Session[]>([]);
-     const [allSessions, setAllSessions] = useState<Session[]>([]);
      const navigate = useNavigate();
      const { userStore, apiStore } = useStores();
      const teamId = userStore.user?.team;
@@ -54,7 +53,6 @@ const SessionListView = () => {
                }) as Session[];
      
                const filteredSessions = data.filter(session => session.active === false);
-               setAllSessions(filteredSessions);
      
                // Call getSessionsForTeam for each session's teamId
                await Promise.all(

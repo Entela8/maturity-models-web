@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { isAxiosError } from 'axios';
 import { useStores } from '../../Stores';
 import { AuthPayload } from '../../Utils/Types/authPayload';
