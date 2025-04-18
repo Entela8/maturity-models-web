@@ -119,7 +119,6 @@ const Register = observer(() => {
                     <input
                         type='text'
                         name='teamId'
-                        required
                         value={user.team}
                         onChange={handleChange}
                         className='login-input'
