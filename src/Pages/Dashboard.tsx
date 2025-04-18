@@ -164,12 +164,12 @@ const Dashboard = observer(() => {
                             <div>
                                 <Card>
                                     <CardContent>
-                                        <h3>Sessions d'évaluation</h3>
+                                        <h3>Voir les modèles</h3>
                                         <Button 
                                             variant="contained" 
                                             fullWidth onClick={() => navigate('/models')}
                                         >
-                                            Lancer une session
+                                            Accéder aux modèles
                                         </Button>
                                     </CardContent>
                                 </Card>
