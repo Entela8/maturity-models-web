@@ -169,7 +169,7 @@ const Dashboard = observer(() => {
                                             variant="contained" 
                                             fullWidth onClick={() => navigate('/models')}
                                         >
-                                            Lancer une session
+                                            Voir les modèles
                                         </Button>
                                     </CardContent>
                                 </Card>
@@ -178,36 +178,33 @@ const Dashboard = observer(() => {
                     )}
                     
                     {role === Role.MEMBER && (
-                        <>
-                            <div>
-                                <Card>
-                                    <CardContent>
-                                        <h3>Répondre aux questions</h3>
-                                        <Button 
-                                            variant="contained" 
-                                            fullWidth onClick={() => navigate('/models')}
-                                        >
-                                            Accéder aux modèles
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                            <div>
-                                <Card>
-                                    <CardContent>
-                                        <h3>Résultats des sessions</h3>
-                                        <Button 
-                                            variant="contained" 
-                                            fullWidth onClick={() => navigate('/results')}
-                                        >
-                                            Voir les résultats
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </>
+                        <div>
+                            <Card>
+                                <CardContent>
+                                    <h3>Répondre aux questions</h3>
+                                    <Button 
+                                        variant="contained" 
+                                        fullWidth onClick={() => navigate('/models')}
+                                    >
+                                        Accéder aux modèles
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </div>
                     )}
-
+                    <div>
+                        <Card>
+                            <CardContent>
+                                <h3>Résultats des sessions</h3>
+                                <Button 
+                                    variant="contained" 
+                                    fullWidth onClick={() => navigate('/results')}
+                                >
+                                    Voir les résultats
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    </div>
                     <Dialog
                         open={openDialog}
                         onClose={() => setOpenDialog(false)}

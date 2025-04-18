@@ -88,9 +88,6 @@ const Login = (observer(() =>
 							className='login-input'
 						/>
 					</div>
-					<div style={{ margin: '15px' }}>
-						<Link to={"/ask-reset-password"}>Mot de passe oublié</Link>
-					</div>
 
 					<div style={{ textAlign: 'center' }}>
 						<input

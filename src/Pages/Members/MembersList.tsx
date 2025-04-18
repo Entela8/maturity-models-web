@@ -206,7 +206,7 @@ const MembersList = observer(() =>
                          </select>
                          </DialogContent>
                          <DialogActions>
-                         <Button onClick={() => setOpenDialog(false)}>Annuler</Button>
+                         <Button variant="outlined" onClick={() => setOpenDialog(false)}>Annuler</Button>
                          <Button type="submit">Envoyer</Button>
                          </DialogActions>
                     </Dialog>
