@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ModelDTO } from "../../Utils/Types/model";
 import { useStores } from "../../Stores";
 import {
@@ -19,7 +19,8 @@ const ModelList = () => {
   const { userStore, apiStore } = useStores();
   const teamId = userStore.user?.team;
   const role = userStore.user?.role ?? Role.MEMBER;
-
+  const location = useLocation();
+  
   useEffect(() => {
       if (userStore.user?.role === Role.OWNER) {
         getAllSessions();
@@ -29,7 +30,7 @@ const ModelList = () => {
         getSessionsForTeam(teamId);
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location.pathname]);
 
   const getAllModels = async () => {
     setLoading(true);
