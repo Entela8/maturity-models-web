@@ -38,6 +38,7 @@ interface SessionCardProps {
           <div>
             <h3>{formattedDate}</h3>
             <h3>{"Session ID: " +session.id}</h3>
+            <h3>{"Team ID: " + session.teamId}</h3>
           </div>
         </Card>
       );
