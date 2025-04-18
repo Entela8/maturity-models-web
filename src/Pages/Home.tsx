@@ -6,6 +6,12 @@ const Home = () => {
 
     return (
         <div className='home-container'>
+            <img 
+                src="/elements/logo.svg" 
+                alt="Logo" 
+                height={150}
+                style={{marginBottom: 20}}
+            />
             <h1>
                 Bienvenue sur la plateforme d'évaluation de maturité
             </h1>

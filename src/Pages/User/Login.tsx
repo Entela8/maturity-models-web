@@ -67,8 +67,15 @@ const Login = (observer(() =>
 			<Backdrop sx={{ color: '#fff', zIndex: 1 }} open={loading}>
 				<CircularProgress color='inherit' />
 			</Backdrop>
+
 			<div className='login-container'>
-				<h2 style={{ fontWeight: 'bold' }}>Portail de connexion</h2>
+				<img 
+					src="/elements/logo.svg" 
+					alt="Logo" 
+					height={150}
+					style={{marginBottom: 20}}
+				/>
+				<h2 style={{ fontWeight: 'bold' }}>Portail de connexion Maturity Models</h2>
 				<form className='login-form'>
 					<div>
 						<input
@@ -89,7 +96,7 @@ const Login = (observer(() =>
 						/>
 					</div>
 
-					<div style={{ textAlign: 'center' }}>
+					<div style={{ textAlign: 'center', marginTop: 30 }}>
 						<input
 							type='submit'
 							onClick={(e) => attemptLogin(e)}

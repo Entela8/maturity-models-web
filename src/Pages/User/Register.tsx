@@ -72,6 +72,12 @@ const Register = observer(() => {
                 <CircularProgress color='inherit' />
             </Backdrop>
             <div className='login-container'>
+                <img 
+                    src="/elements/logo.svg" 
+                    alt="Logo" 
+                    height={150}
+                    style={{marginBottom: 20}}
+                />
                 <h2>
                     Créer un compte
                 </h2>

@@ -69,15 +69,16 @@ const Dashboard = observer(() => {
         <HeaderMenu headerText={"Bienvenue, " + userStore.user?.firstName}  />
 
         <div style={{padding: 20}}>
-
-            <h3 className='dashboard-title'>
-                Tableau de bord
-            </h3>
-            
             <section className='dahshboard-section'>
-                <h1>
+                <img 
+                    src="/elements/logo.svg" 
+                    alt="Logo" 
+                    height={100}
+                    style={{marginBottom: 20}}
+                />
+                <h3>
                     Vous etes: ({role})
-                </h1>
+                </h3>
 
                 <div>
                     {role === Role.OWNER && (
