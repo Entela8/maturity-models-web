@@ -5,6 +5,7 @@ export interface Answer {
 }
 
 export interface AnswerQuestion {
+  questionTitle: any;
   question: string;
   score: number;
 }
