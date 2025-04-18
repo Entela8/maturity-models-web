@@ -96,7 +96,7 @@ const ModelList = () => {
         </div>
       }
 
-      <HeaderMenu headerText={"Liste de modéles de maturité"} />
+      <HeaderMenu headerText={"Liste de modèles de maturité"} />
 
       <div className="container-list-view">
         {role === Role.OWNER && (

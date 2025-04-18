@@ -153,7 +153,8 @@ const Dashboard = observer(() => {
                                         <h3>Gérer l'équipe</h3>
                                         <Button 
                                             variant="contained" 
-                                            fullWidth onClick={() => navigate('/team')}
+                                            fullWidth 
+                                            onClick={() => navigate(`/teams/${userStore.user?.team}`)}
                                         >
                                             Inviter des membres
                                         </Button>
@@ -166,7 +167,7 @@ const Dashboard = observer(() => {
                                         <h3>Sessions d'évaluation</h3>
                                         <Button 
                                             variant="contained" 
-                                            fullWidth onClick={() => navigate('/sessions')}
+                                            fullWidth onClick={() => navigate('/models')}
                                         >
                                             Lancer une session
                                         </Button>
