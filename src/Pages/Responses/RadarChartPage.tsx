@@ -13,7 +13,6 @@ const RadarChartWithUsers = () => {
 	const { apiStore, userStore } = useStores()
 	const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
 	const [radarData, setRadarData] = useState<any[]>([]);
-	const [questions, setQuestions] = useState<string[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [averageData, setAverageData] = useState<any[]>([]);
 	const [responses, setResponses] = useState<Responses[]>([]);
@@ -40,7 +39,6 @@ const RadarChartWithUsers = () => {
 
 	useEffect(() => {
 		const allQuestions = responses[0]?.answers.map(a => a.question) || [];
-		setQuestions(allQuestions);
 
 		const transformedData: any[] = allQuestions.map((q) => {
 			const obj: any = { question: q };
@@ -53,7 +51,7 @@ const RadarChartWithUsers = () => {
 
 		setRadarData(transformedData);
 		setSelectedUsers(responses.map(u => u.userId)); // Tout coché par défaut
-	}, []);
+	}, [responses]);
 
 	useEffect(() => {
 	// Calcul de la moyenne une seule fois
@@ -65,7 +63,7 @@ const RadarChartWithUsers = () => {
 			});
 			setAverageData(calculatedAverage);
 		}
-	}, [radarData]);
+	}, [radarData, responses]);
 
 	const getColor = (index: number) => {
 		const palette = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#A133FF"];

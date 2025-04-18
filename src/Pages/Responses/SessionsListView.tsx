@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ModelDTO } from "../../Utils/Types/model";
 import { useStores } from "../../Stores";
 import {
   CircularProgress
@@ -11,7 +10,6 @@ import SessionCard from "../../Components/SessionCard";
 
 const SessionListView = () => {
      const [loading, setLoading] = useState<boolean>(false);
-     const [apiModels, setApiModels] = useState<ModelDTO[]>([]);
      const [sessions, setSessions] = useState<Session[]>([]);
      const navigate = useNavigate();
      const { userStore, apiStore } = useStores();
