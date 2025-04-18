@@ -147,45 +147,46 @@ const Dashboard = observer(() => {
                         </div>
                     )}
                     
+                    {role === Role.TEAM_LEADER && (
+                    <div>
+                        <Card>
+                            <CardContent>
+                                <h3>Gérer l'équipe</h3>
+                                <Button 
+                                    variant="contained" 
+                                    fullWidth 
+                                    onClick={() => navigate(`/teams/${userStore.user?.team}`)}
+                                    startIcon={ <PersonIcon /> }
+                                >
+                                    Inviter des membres
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    </div>
+                    )}
+
                     {(role === Role.TEAM_LEADER || role === Role.MEMBER) && (
-                        <>
-                            <div>
-                                <Card>
-                                    <CardContent>
-                                        <h3>Gérer l'équipe</h3>
-                                        <Button 
-                                            variant="contained" 
-                                            fullWidth 
-                                            onClick={() => navigate(`/teams/${userStore.user?.team}`)}
-                                            startIcon={ <PersonIcon /> }
-                                        >
-                                            Inviter des membres
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                            <div>
-                                <Card>
-                                    <CardContent>
-                                        <h3>Voir les modèles</h3>
-                                        <Button 
-                                            variant="contained" 
-                                            fullWidth 
-                                            onClick={() => navigate('/models')}
-                                            startIcon={<img 
-                                                src="/elements/manage.svg" 
-                                                alt="Créer" 
-                                                height={20} 
-                                                width={20} 
-                                                style={{ filter: 'invert(1)' }}
-                                            />}
-                                        >
-                                            Accéder aux modèles
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </>
+                        <div>
+                            <Card>
+                                <CardContent>
+                                    <h3>Voir les modèles</h3>
+                                    <Button 
+                                        variant="contained" 
+                                        fullWidth 
+                                        onClick={() => navigate('/models')}
+                                        startIcon={<img 
+                                            src="/elements/manage.svg" 
+                                            alt="Créer" 
+                                            height={20} 
+                                            width={20} 
+                                            style={{ filter: 'invert(1)' }}
+                                        />}
+                                    >
+                                        Accéder aux modèles
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </div>
                     )}
 
                     <div>
